@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>爱心页面</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f0f0f0;
+        }
+
+        /* 爱心样式 */
+        .heart {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            background: #ff3e6c;
+            transform: rotate(-45deg);
+            animation: beat 1.5s infinite;
+            box-shadow: 0 0 30px rgba(255, 62, 108, 0.5);
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: #ff3e6c;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -75px;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: 75px;
+        }
+
+        /* 心跳动画 */
+        @keyframes beat {
+            0% {
+                transform: rotate(-45deg) scale(1);
+            }
+            15% {
+                transform: rotate(-45deg) scale(1.2);
+            }
+            30% {
+                transform: rotate(-45deg) scale(1);
+            }
+            45% {
+                transform: rotate(-45deg) scale(1.2);
+            }
+            60% {
+                transform: rotate(-45deg) scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 页面加载后自动显示爱心 -->
+    <div class="heart"></div>
+</body>
+</html>
