@@ -3,9 +3,9 @@
  * 名字、简介、邮箱、GitHub 都在这个文件里，改完重新构建即可。
  */
 export const SITE = {
-  name: '技术小卷毛',
-  latinName: 'L1PYTHON11',
-  title: '技术小卷毛 · 记录与思考',
+  name: 'Rui',
+  latinName: 'RUI',
+  title: 'Rui · 记录与思考',
   description: '一个关于技术、折腾与日常的个人博客。写下来，就是最好的思考。',
   intro:
     '在这里记录技术、折腾与生活。相信「写下来」是最好的思考方式，也是最快的成长路径。',

@@ -3,6 +3,7 @@ import '@fontsource-variable/bricolage-grotesque';
 import '@fontsource/ibm-plex-mono/400.css';
 import '@fontsource/ibm-plex-mono/500.css';
 import '../styles/global.css';
+import '../styles/glass.css';
 
 import { ClientRouter } from 'astro:transitions';
 import BaseHead from '../components/BaseHead.astro';
@@ -40,6 +41,15 @@ const { title, description = SITE.description, type = 'website' } = Astro.props;
   </head>
   <body id="top">
     <a class="skip-link" href="#main">跳到正文</a>
+
+    <div class="ambient" aria-hidden="true">
+      <span class="ambient__orb ambient__orb--1"></span>
+      <span class="ambient__orb ambient__orb--2"></span>
+      <span class="ambient__orb ambient__orb--3"></span>
+      <span class="ambient__orb ambient__orb--4"></span>
+      <span class="ambient__orb ambient__orb--5"></span>
+      <span class="ambient__veil"></span>
+    </div>
 
     <Curtain />
     <div class="cursor-ring" id="cursor-ring" transition:persist aria-hidden="true"></div>
