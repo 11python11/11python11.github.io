@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { withBase } from '../../utils';
+
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+
+const counts = new Map<string, number>();
+for (const post of posts) {
+  for (const tag of post.data.tags) {
+    counts.set(tag, (counts.get(tag) ?? 0) + 1);
+  }
+}
+
+const tags = [...counts.entries()].sort(
+  (a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'zh-CN'),
+);
+---
+
+<BaseLayout title="标签" description="按标签浏览全部文章。">
+  <section class="page-hero container" data-hero>
+    <p class="eyebrow mono">// 02 / TAGS</p>
+    <h1 class="page-hero__title">标签<span class="accent">.</span></h1>
+    <p class="page-hero__desc">一个标签是一条线索。顺着它，能找到同一主题下的所有记录。</p>
+    <div class="page-hero__meta mono">
+      <span>{tags.length} 个标签</span>
+      <span>{posts.length} 篇文章</span>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="tag-grid">
+        {
+          tags.map(([tag, count]) => (
+            <a class="tag-card" href={withBase(`/tags/${encodeURIComponent(tag)}/`)}>
+              <span class="tag-card__name"># {tag}</span>
+              <span class="tag-card__count mono">{count} 篇文章</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>

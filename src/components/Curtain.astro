@@ -1,0 +1,59 @@
+---
+import { SITE } from '../consts';
+---
+
+<div id="curtain" class="curtain" transition:persist aria-hidden="true">
+  <span class="curtain__mark">{SITE.latinName} / LOADING</span>
+  <div class="curtain__panel"></div>
+  <div class="curtain__panel"></div>
+  <div class="curtain__panel"></div>
+  <div class="curtain__panel"></div>
+  <div class="curtain__panel"></div>
+</div>
+
+<style>
+  .curtain {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .curtain.is-animating {
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .curtain__panel {
+    background: linear-gradient(180deg, #171410, #0b0a08);
+    border-right: 1px solid rgba(255, 255, 255, 0.04);
+    transform: translateY(-101%);
+    will-change: transform;
+  }
+
+  .curtain__mark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    color: #f4f1ea;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 720px) {
+    .curtain__mark {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+    }
+  }
+</style>

@@ -1,0 +1,32 @@
+---
+import { GISCUS } from '../consts';
+
+const enabled = Boolean(GISCUS.repo && GISCUS.repoId && GISCUS.categoryId);
+---
+
+{
+  enabled && (
+    <section class="comments container" aria-label="评论">
+      <p class="comments__label mono">// 评论</p>
+      <div class="giscus">
+        <script
+          src="https://giscus.app/client.js"
+          data-repo={GISCUS.repo}
+          data-repo-id={GISCUS.repoId}
+          data-category={GISCUS.category}
+          data-category-id={GISCUS.categoryId}
+          data-mapping={GISCUS.mapping}
+          data-strict={GISCUS.strict}
+          data-reactions-enabled={GISCUS.reactionsEnabled}
+          data-emit-metadata={GISCUS.emitMetadata}
+          data-input-position={GISCUS.inputPosition}
+          data-theme={GISCUS.theme}
+          data-lang={GISCUS.lang}
+          crossorigin="anonymous"
+          is:inline
+          async
+        />
+      </div>
+    </section>
+  )
+}

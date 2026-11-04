@@ -1,0 +1,49 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostRow from '../../components/PostRow.astro';
+import { withBase } from '../../utils';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+
+  const groups = new Map<string, CollectionEntry<'blog'>[]>();
+  for (const post of posts) {
+    for (const tag of post.data.tags) {
+      const list = groups.get(tag) ?? [];
+      list.push(post);
+      groups.set(tag, list);
+    }
+  }
+
+  return [...groups.entries()].map(([tag, taggedPosts]) => ({
+    params: { tag },
+    props: {
+      tag,
+      posts: taggedPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()),
+    },
+  }));
+}
+
+const tag = Astro.params.tag ?? '';
+const { posts } = Astro.props;
+---
+
+<BaseLayout title={`#${tag}`} description={`标签「${tag}」下的全部文章。`}>
+  <section class="page-hero container" data-hero>
+    <p class="eyebrow mono">// TAG / {tag}</p>
+    <h1 class="page-hero__title"><span class="accent">#</span>{tag}</h1>
+    <p class="page-hero__desc">共 {posts.length} 篇与「{tag}」相关的文章。</p>
+    <div class="page-hero__meta mono">
+      <a href={withBase('/blog/')} class="link-arrow">← 返回全部文章</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="post-list">
+        {posts.map((post, index) => <PostRow post={post} index={index} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,168 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Marquee from '../components/Marquee.astro';
+import PostRow from '../components/PostRow.astro';
+import NoteCard from '../components/NoteCard.astro';
+import { SITE } from '../consts';
+import { withBase } from '../utils';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+);
+
+const notes = (await getCollection('notes', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+
+const tagCounts = new Map<string, number>();
+for (const post of posts) {
+  for (const tag of post.data.tags) {
+    tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+  }
+}
+
+const tagList = [...tagCounts.entries()].sort(
+  (a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'zh-CN'),
+);
+---
+
+<BaseLayout>
+  <section class="hero">
+    <canvas class="hero__canvas" data-particles aria-hidden="true"></canvas>
+
+    <div class="container hero__inner" data-hero>
+      <p class="eyebrow mono">// 记录 · 思考 · 折腾</p>
+
+      <h1>
+        <span class="line line--sm">你好，我是</span>
+        <span class="line line--name">{SITE.latinName}<span class="dot">.</span></span>
+      </h1>
+
+      <p class="hero__intro">{SITE.intro}</p>
+
+      <div class="hero__actions">
+        <a class="btn btn--solid" href={withBase('/blog/')} data-magnetic>
+          开始阅读
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="btn btn--ghost" href={withBase('/about/')} data-magnetic>
+          关于我
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+      </div>
+
+      <div class="hero__meta mono">
+        <span>BASED IN {SITE.location}</span>
+        <span>BUILT WITH ASTRO</span>
+        <span>SINCE {SITE.since}</span>
+      </div>
+    </div>
+
+    <div class="hero__rail mono" aria-hidden="true">
+      <span>SCROLL</span>
+      <i></i>
+    </div>
+  </section>
+
+  <Marquee />
+
+  <section class="stats-band">
+    <div class="container stats">
+      <div class="stat">
+        <span class="stat__num">{posts.length}</span>
+        <span class="stat__label mono">篇文章</span>
+      </div>
+      <div class="stat">
+        <span class="stat__num">{tagList.length}</span>
+        <span class="stat__label mono">个标签</span>
+      </div>
+      <div class="stat">
+        <span class="stat__num">{SITE.since}</span>
+        <span class="stat__label mono">开始记录</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__heading">
+          <span class="section__index mono">// 01 / LATEST</span>
+          <h2 class="section__title">最新文章</h2>
+        </div>
+        <a class="link-arrow" href={withBase('/blog/')}>
+          全部文章 <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="post-list">
+        {posts.slice(0, 4).map((post, index) => <PostRow post={post} index={index} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__heading">
+          <span class="section__index mono">// 02 / NOTES</span>
+          <h2 class="section__title">最近折腾</h2>
+        </div>
+        <a class="link-arrow" href={withBase('/notes/')}>
+          全部折腾 <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="notes-grid">
+        {notes.slice(0, 3).map((note) => <NoteCard note={note} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__heading">
+          <span class="section__index mono">// 03 / INDEX</span>
+          <h2 class="section__title">时间线与标签</h2>
+        </div>
+        <a class="link-arrow" href={withBase('/archive/')}>
+          完整归档 <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="split">
+        <div>
+          <p class="mono" style="margin-bottom: 14px; color: var(--muted);">// 最近更新</p>
+          <div class="timeline">
+            {
+              posts.slice(0, 5).map((post) => (
+                <a class="timeline__item" href={withBase(`/blog/${post.id}/`)}>
+                  <span class="timeline__date mono">
+                    {post.data.pubDate.toISOString().slice(5, 10).replace('-', '.')}
+                  </span>
+                  <span class="timeline__title">{post.data.title}</span>
+                </a>
+              ))
+            }
+          </div>
+        </div>
+
+        <aside class="split__side">
+          <p class="mono" style="margin-bottom: 14px; color: var(--muted);">// 标签云</p>
+          <div class="tag-cloud">
+            {
+              tagList.map(([tag, count]) => (
+                <a href={withBase(`/tags/${encodeURIComponent(tag)}/`)}>
+                  {tag}
+                  <span class="count">{count}</span>
+                </a>
+              ))
+            }
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

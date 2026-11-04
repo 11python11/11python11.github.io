@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { excerpt, formatDate, withBase } from '../utils';
+
+interface Props {
+  note: CollectionEntry<'notes'>;
+}
+
+const { note } = Astro.props;
+---
+
+<a class="note-card" href={`${withBase('/notes/')}#note-${note.id}`}>
+  <div class="note-card__meta mono">
+    <span class="note-card__tag">{note.data.tag}</span>
+    <span>{formatDate(note.data.date)}</span>
+  </div>
+
+  <h3 class="note-card__title">{note.data.title}</h3>
+  <p class="note-card__excerpt">{excerpt(note.body, 96)}</p>
+
+  <span class="note-card__more mono">READ NOTE →</span>
+</a>

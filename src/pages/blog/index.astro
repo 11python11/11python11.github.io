@@ -1,0 +1,53 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostRow from '../../components/PostRow.astro';
+import { withBase } from '../../utils';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+);
+
+const tagCounts = new Map<string, number>();
+for (const post of posts) {
+  for (const tag of post.data.tags) {
+    tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+  }
+}
+
+const tags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
+---
+
+<BaseLayout title="文章" description="全部文章与思考记录。">
+  <section class="page-hero container" data-hero>
+    <p class="eyebrow mono">// 01 / ALL POSTS</p>
+    <h1 class="page-hero__title">所有文章<span class="accent">.</span></h1>
+    <p class="page-hero__desc">
+      长文都放在这里：技术笔记、踩坑记录、以及那些值得被写下来的想法。
+    </p>
+    <div class="page-hero__meta mono">
+      <span>{posts.length} 篇文章</span>
+      <span>{tags.length} 个标签</span>
+      <span>持续更新中</span>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="filter-bar">
+        <span class="chip chip--active">全部</span>
+        {
+          tags.map(([tag, count]) => (
+            <a class="chip" href={withBase(`/tags/${encodeURIComponent(tag)}/`)}>
+              {tag} <span>{count}</span>
+            </a>
+          ))
+        }
+      </div>
+
+      <div class="post-list">
+        {posts.map((post, index) => <PostRow post={post} index={index} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

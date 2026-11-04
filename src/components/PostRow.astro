@@ -1,0 +1,26 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate, withBase } from '../utils';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  index: number;
+}
+
+const { post, index } = Astro.props;
+---
+
+<a class="post-row" href={withBase(`/blog/${post.id}/`)}>
+  <span class="post-row__idx mono">{String(index + 1).padStart(2, '0')}</span>
+
+  <div class="post-row__main">
+    <h3 class="post-row__title">{post.data.title}</h3>
+    <p class="post-row__desc">{post.data.description}</p>
+    <div class="post-row__tags">
+      {post.data.tags.map((tag) => <span class="tag"># {tag}</span>)}
+    </div>
+  </div>
+
+  <span class="post-row__date mono">{formatDate(post.data.pubDate)}</span>
+  <span class="post-row__arrow" aria-hidden="true">→</span>
+</a>

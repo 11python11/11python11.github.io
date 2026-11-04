@@ -1,0 +1,51 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { formatDate } from '../utils';
+
+const notes = (await getCollection('notes', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+
+const renderedNotes = await Promise.all(
+  notes.map(async (note) => ({
+    note,
+    Content: (await render(note)).Content,
+  })),
+);
+---
+
+<BaseLayout title="折腾" description="短内容流：踩坑、碎碎念与阶段性里程碑。">
+  <section class="page-hero container" data-hero>
+    <p class="eyebrow mono">// 04 / NOTES</p>
+    <h1 class="page-hero__title">折腾<span class="accent">.</span></h1>
+    <p class="page-hero__desc">
+      长文更新慢，短内容不会。这里放那些不值得单独成篇、但值得记一笔的瞬间。
+    </p>
+    <div class="page-hero__meta mono">
+      <span>{notes.length} 条记录</span>
+      <span>持续更新</span>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      {
+        renderedNotes.map(({ note, Content }) => (
+          <article class="note-article" id={`note-${note.id}`}>
+            <aside class="note-article__meta mono">
+              <span class="note-article__tag">{note.data.tag}</span>
+              <span>{formatDate(note.data.date)}</span>
+            </aside>
+            <div class="note-article__body">
+              <h2 class="note-article__title">{note.data.title}</h2>
+              <div class="prose">
+                <Content />
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

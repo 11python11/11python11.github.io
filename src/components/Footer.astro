@@ -1,0 +1,31 @@
+---
+import { SITE } from '../consts';
+import { withBase } from '../utils';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <p class="footer__label mono">// NEXT</p>
+    <h2 class="footer__title">
+      下一个想法，<br />
+      <span class="accent">写下来。</span>
+    </h2>
+
+    <a class="footer__mail" href={`mailto:${SITE.email}`} data-magnetic>
+      {SITE.email}
+      <span aria-hidden="true">↗</span>
+    </a>
+
+    <div class="footer__bottom mono">
+      <span>© {year} {SITE.latinName} · 保留所有想法</span>
+      <span>BUILT WITH ASTRO · HOSTED ON GITHUB PAGES</span>
+      <div class="footer__links">
+        <a href={SITE.github} target="_blank" rel="noreferrer">GITHUB</a>
+        <a href={withBase('/rss.xml')}>RSS</a>
+        <a href="#top">TOP ↑</a>
+      </div>
+    </div>
+  </div>
+</footer>

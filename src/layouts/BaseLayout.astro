@@ -1,0 +1,59 @@
+---
+import '@fontsource-variable/bricolage-grotesque';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
+import '../styles/global.css';
+
+import { ClientRouter } from 'astro:transitions';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Curtain from '../components/Curtain.astro';
+import { SITE } from '../consts';
+
+interface Props {
+  title?: string;
+  description?: string;
+  type?: 'website' | 'article';
+}
+
+const { title, description = SITE.description, type = 'website' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <BaseHead title={title} description={description} type={type} />
+    <script is:inline data-astro-rerun>
+      (function () {
+        try {
+          var saved = localStorage.getItem('theme');
+          if (saved === 'dark' || saved === 'light') {
+            document.documentElement.dataset.theme = saved;
+          }
+        } catch (error) {
+          /* 隐私模式下忽略 */
+        }
+      })();
+    </script>
+    <ClientRouter />
+  </head>
+  <body id="top">
+    <a class="skip-link" href="#main">跳到正文</a>
+
+    <Curtain />
+    <div class="cursor-ring" id="cursor-ring" transition:persist aria-hidden="true"></div>
+
+    <Header />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <script>
+      import '../scripts/app';
+    </script>
+  </body>
+</html>

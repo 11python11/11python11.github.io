@@ -1,0 +1,56 @@
+---
+const rowA = ['WRITE', 'BUILD', 'SHARE', 'STAY CURIOUS'];
+const rowB = ['写下来', '就是思考', '保持好奇', '折腾不止'];
+
+const repeat = (items: string[]) => [...items, ...items];
+---
+
+<div class="marquee-band" aria-hidden="true">
+  <div class="marquee">
+    <div class="marquee__track">
+      {
+        [0, 1].map(() => (
+          <div class="marquee__group">
+            {repeat(rowA).map((item, index) => (
+              <>
+                <span
+                  class:list={[
+                    'marquee__item',
+                    { 'marquee__item--outline': index % 2 === 1 },
+                  ]}
+                >
+                  {item}
+                </span>
+                <span class="marquee__sep">/</span>
+              </>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="marquee marquee--reverse">
+    <div class="marquee__track">
+      {
+        [0, 1].map(() => (
+          <div class="marquee__group">
+            {repeat(rowB).map((item, index) => (
+              <>
+                <span
+                  class:list={[
+                    'marquee__item',
+                    { 'marquee__item--outline': index % 2 === 1 },
+                  ]}
+                >
+                  {item}
+                </span>
+                <span class="marquee__sep">/</span>
+              </>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>

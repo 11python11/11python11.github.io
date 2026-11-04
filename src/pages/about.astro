@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../consts';
+import { withBase } from '../utils';
+---
+
+<BaseLayout title="关于" description={`关于 ${SITE.name}：写代码、写文章、保持好奇。`}>
+  <section class="page-hero container" data-hero>
+    <p class="eyebrow mono">// 05 / ABOUT</p>
+    <h1 class="page-hero__title">关于<span class="accent">.</span></h1>
+    <p class="page-hero__desc">{SITE.intro}</p>
+    <div class="page-hero__meta mono">
+      <span>BASED IN {SITE.location}</span>
+      <span>SINCE {SITE.since}</span>
+    </div>
+  </section>
+
+  <div class="container about-grid">
+    <div class="about-block">
+      <h2>写在前面</h2>
+      <p>
+        我是 {SITE.name}。这个博客用来存放那些想清楚了、或者还没想清楚但值得写下来的东西：
+        技术笔记、踩坑记录、偶尔的生活片段。
+      </p>
+      <p>
+        我相信写作不是输出的终点，而是思考的过程。很多问题在脑子里是模糊的，落到文字里才会暴露漏洞。
+        所以这里不会有「完美」的文章，只有持续修正的版本。
+      </p>
+      <p>
+        这个站由 Astro 静态生成，托管在 GitHub Pages，评论准备接入 giscus。
+        没有服务器，没有数据库，月度成本 0 元。它更像一个可以随时打开的本子，而不是一个产品。
+      </p>
+    </div>
+
+    <div class="about-block">
+      <h2>现在</h2>
+      <ul class="about-list">
+        <li><span class="mono">在学习</span><span>Astro / TypeScript / 前端工程化</span></li>
+        <li><span class="mono">在折腾</span><span>机器人竞赛视觉识别（YOLOv5m）</span></li>
+        <li><span class="mono">偶尔在打</span><span>CTF / 逆向 / Pwn</span></li>
+        <li><span class="mono">正在读</span><span>写下来的力量</span></li>
+      </ul>
+
+      <div class="about-links">
+        <a href={SITE.github} target="_blank" rel="noreferrer">
+          <span>GitHub</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+        <a href={`mailto:${SITE.email}`}>
+          <span>Email</span>
+          <span>{SITE.email}</span>
+        </a>
+        <a href={withBase('/rss.xml')}>
+          <span>RSS</span>
+          <span>订阅更新</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
