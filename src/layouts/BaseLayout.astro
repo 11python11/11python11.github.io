@@ -22,22 +22,31 @@ const { title, description = SITE.description, type = 'website' } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-CN">
   <head>
     <BaseHead title={title} description={description} type={type} />
     <script is:inline data-astro-rerun>
       (function () {
-        try {
-          var saved = localStorage.getItem('theme');
-          var theme = saved === 'light' ? 'light' : 'dark';
-          document.documentElement.dataset.theme = theme;
+        var theme = 'light';
 
-          var meta = document.querySelector('meta[name="theme-color"]');
-          if (meta) {
-            meta.setAttribute('content', theme === 'dark' ? '#0b0910' : '#f6f1e9');
+        try {
+          var saved = sessionStorage.getItem('theme');
+          if (saved === 'light' || saved === 'dark') {
+            theme = saved;
+          } else {
+            var hour = new Date().getHours();
+            theme = hour >= 18 || hour < 6 ? 'dark' : 'light';
           }
         } catch (error) {
-          document.documentElement.dataset.theme = 'dark';
+          var hour = new Date().getHours();
+          theme = hour >= 18 || hour < 6 ? 'dark' : 'light';
+        }
+
+        document.documentElement.dataset.theme = theme;
+
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) {
+          meta.setAttribute('content', theme === 'dark' ? '#0b0910' : '#f6f1e9');
         }
       })();
     </script>

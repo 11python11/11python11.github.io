@@ -37,13 +37,45 @@ function storageRemove(key: string) {
 }
 
 /* ============================================================
-   主题切换
+   主题切换：按本地时间自动，手动切换仅在当前标签页生效
    ============================================================ */
+const THEME_KEY = 'theme';
+const NIGHT_START = 18;
+const NIGHT_END = 6;
+
 function syncThemeColor(theme: 'light' | 'dark') {
   const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
   if (meta) {
     meta.setAttribute('content', theme === 'dark' ? '#0b0910' : '#f6f1e9');
   }
+}
+
+function getSessionTheme(): 'light' | 'dark' | null {
+  try {
+    const saved = sessionStorage.getItem(THEME_KEY);
+    return saved === 'light' || saved === 'dark' ? saved : null;
+  } catch {
+    return null;
+  }
+}
+
+function timeBasedTheme(): 'light' | 'dark' {
+  const hour = new Date().getHours();
+  return hour >= NIGHT_START || hour < NIGHT_END ? 'dark' : 'light';
+}
+
+function applyAutoTheme() {
+  if (getSessionTheme()) return;
+
+  const next = timeBasedTheme();
+  if (document.documentElement.dataset.theme === next) return;
+
+  document.documentElement.dataset.theme = next;
+  syncThemeColor(next);
+  document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((button) => {
+    button.setAttribute('aria-pressed', String(next === 'dark'));
+  });
+  document.dispatchEvent(new Event('themechange'));
 }
 
 function initThemeToggle() {
@@ -60,7 +92,7 @@ function initThemeToggle() {
       document.documentElement.dataset.theme = next;
 
       try {
-        localStorage.setItem('theme', next);
+        sessionStorage.setItem(THEME_KEY, next);
       } catch {
         /* 忽略 */
       }
@@ -71,6 +103,8 @@ function initThemeToggle() {
     });
   });
 }
+
+window.setInterval(applyAutoTheme, 60_000);
 
 /* ============================================================
    幕布转场：会话内只播放一次
