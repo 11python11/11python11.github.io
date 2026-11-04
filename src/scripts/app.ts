@@ -39,6 +39,13 @@ function storageRemove(key: string) {
 /* ============================================================
    主题切换
    ============================================================ */
+function syncThemeColor(theme: 'light' | 'dark') {
+  const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+  if (meta) {
+    meta.setAttribute('content', theme === 'dark' ? '#0b0910' : '#f6f1e9');
+  }
+}
+
 function initThemeToggle() {
   document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((button) => {
     if (button.dataset.ready === '1') return;
@@ -46,14 +53,11 @@ function initThemeToggle() {
 
     const isDark = document.documentElement.dataset.theme === 'dark';
     button.setAttribute('aria-pressed', String(isDark));
+    syncThemeColor(isDark ? 'dark' : 'light');
 
     button.addEventListener('click', () => {
       const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-      if (next === 'dark') {
-        document.documentElement.dataset.theme = 'dark';
-      } else {
-        document.documentElement.removeAttribute('data-theme');
-      }
+      document.documentElement.dataset.theme = next;
 
       try {
         localStorage.setItem('theme', next);
@@ -62,6 +66,7 @@ function initThemeToggle() {
       }
 
       button.setAttribute('aria-pressed', String(next === 'dark'));
+      syncThemeColor(next);
       document.dispatchEvent(new Event('themechange'));
     });
   });
