@@ -17,7 +17,15 @@ function isActive(href: string): boolean {
 <header class="site-header">
   <div class="container site-header__inner">
     <a class="brand" href={withBase('/')} aria-label={`${SITE.name} 首页`}>
-      <span class="brand__mark" aria-hidden="true">/</span>
+      <img
+        class="brand__mark"
+        src={withBase('/images/avatar.jpg')}
+        alt=""
+        width="34"
+        height="34"
+        loading="eager"
+        decoding="async"
+      />
       <span class="brand__name">{SITE.latinName}</span>
     </a>
 

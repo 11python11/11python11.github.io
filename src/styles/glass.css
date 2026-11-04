@@ -270,21 +270,27 @@ main,
 }
 
 .brand__mark {
-  width: 30px;
-  height: 30px;
-  border-radius: 10px;
+  display: block;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 40%;
   background: var(--glass-strong);
   color: var(--accent);
   box-shadow: var(--glass-highlight);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  transform: rotate(-6deg);
+  transform: rotate(-3deg);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .brand:hover .brand__mark {
-  background: var(--accent);
-  color: #fff;
-  transform: rotate(6deg);
+  border-color: var(--accent);
+  background: var(--glass-strong);
+  color: var(--accent);
+  box-shadow: var(--glass-shadow-sm), 0 0 0 2px var(--accent-soft);
+  transform: rotate(3deg) scale(1.06);
 }
 
 .nav {
@@ -1041,8 +1047,8 @@ main,
   }
 
   .brand__mark {
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
   }
 
   .nav {
