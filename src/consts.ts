@@ -16,11 +16,67 @@ export const SITE = {
 };
 
 export const NAV = [
+  { label: '首页', href: '/' },
   { label: '文章', href: '/blog/' },
-  { label: '折腾', href: '/notes/' },
   { label: '归档', href: '/archive/' },
-  { label: '标签', href: '/tags/' },
+  { label: '照片墙', href: '/photowall/' },
+  { label: '杂谈', href: '/notes/' },
   { label: '关于', href: '/about/' },
+];
+
+/**
+ * 照片墙 —— 把照片放进 public/images/photowall/，在这里登记即可。
+ * title / meta 会作为照片说明显示。
+ */
+export const PHOTOS = [
+  {
+    src: '/images/photowall/rooftop-dusk.jpg',
+    title: '天台上的黄昏',
+    meta: 'CITY · 2026',
+    alt: '黄昏时分的城市天台',
+    width: 2560,
+    height: 1354,
+  },
+  {
+    src: '/images/photowall/desk-morning.jpg',
+    title: '清晨的书桌',
+    meta: 'DAILY · 2026',
+    alt: '阳光照进窗边的书桌',
+    width: 2240,
+    height: 1579,
+  },
+  {
+    src: '/images/photowall/sea-dusk.jpg',
+    title: '海边的日落',
+    meta: 'SEA · 2026',
+    alt: '粉紫色日落下的海面',
+    width: 1680,
+    height: 2106,
+  },
+  {
+    src: '/images/photowall/misty-peaks.jpg',
+    title: '雾里的山',
+    meta: 'MOUNTAIN · 2026',
+    alt: '晨雾中的层叠山峦',
+    width: 2240,
+    height: 1579,
+  },
+  {
+    src: '/images/photowall/rainy-neon.jpg',
+    title: '雨夜霓虹',
+    meta: 'NIGHT · 2026',
+    alt: '雨夜街道的霓虹倒影',
+    width: 1680,
+    height: 2106,
+  },
+  {
+    src: '/images/photowall/flower-field.jpg',
+    title: '紫色花田',
+    meta: 'FIELD · 2026',
+    alt: '黄昏时分的紫色花田',
+    width: 2240,
+    height: 1579,
+  },
 ];
 
 /**

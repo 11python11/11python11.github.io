@@ -8,34 +8,47 @@ const current = base && path.startsWith(base) ? path.slice(base.length) : path;
 const normalized = current.replace(/\/$/, '') || '/';
 
 function isActive(href: string): boolean {
-  const target = href.replace(/\/$/, '');
-  if (target === '') return normalized === '/';
+  const target = href.replace(/\/$/, '') || '/';
+  if (target === '/') return normalized === '/';
   return normalized === target || normalized.startsWith(`${target}/`);
 }
 ---
 
-<header class="site-header">
-  <div class="container site-header__inner">
+<header class="topbar" data-topbar>
+  <div class="topbar__inner">
     <a class="brand" href={withBase('/')} aria-label={`${SITE.name} 首页`}>
-      <img
-        class="brand__mark"
-        src={withBase('/images/avatar.jpg')}
-        alt=""
-        width="34"
-        height="34"
-        loading="eager"
-        decoding="async"
-      />
-      <span class="brand__name">{SITE.latinName}</span>
+      <span class="brand__avatar">
+        <img
+          src={withBase('/images/avatar.jpg')}
+          alt=""
+          width="36"
+          height="36"
+          loading="eager"
+          decoding="async"
+        />
+      </span>
+      <span class="brand__text">
+        <span class="brand__name">{SITE.latinName}</span>
+        <span class="brand__seal">の</span>
+        <span class="brand__after">记录之地</span>
+      </span>
     </a>
 
     <nav class="nav" aria-label="主导航">
       {
-        NAV.map((item) => (
-          <a href={withBase(item.href)} aria-current={isActive(item.href) ? 'page' : undefined}>
-            {item.label}
-          </a>
-        ))
+        NAV.map((item) => {
+          const active = isActive(item.href);
+          return (
+            <a
+              href={withBase(item.href)}
+              class:list={['nav__link', { 'is-active': active }]}
+              aria-current={active ? 'page' : undefined}
+            >
+              {item.label}
+              {active && <span class="nav__dot" aria-hidden="true" />}
+            </a>
+          );
+        })
       }
     </nav>
 
@@ -45,7 +58,7 @@ function isActive(href: string): boolean {
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        stroke-width="1.5"
+        stroke-width="1.6"
         stroke-linecap="round"
         aria-hidden="true"
       >
@@ -57,7 +70,7 @@ function isActive(href: string): boolean {
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        stroke-width="1.5"
+        stroke-width="1.6"
         stroke-linecap="round"
         stroke-linejoin="round"
         aria-hidden="true"

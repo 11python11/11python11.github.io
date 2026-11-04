@@ -61,7 +61,10 @@ const minutes = readingTime(post.body);
 
   {
     (older || newer) && (
-      <nav class="post-nav container" aria-label="文章导航">
+      <nav
+        class:list={['post-nav', 'container', { 'post-nav--single': !older || !newer }]}
+        aria-label="文章导航"
+      >
         {older ? (
           <a href={withBase(`/blog/${older.id}/`)}>
             <span class="post-nav__label mono">← 更早</span>

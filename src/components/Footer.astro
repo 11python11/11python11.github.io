@@ -7,33 +7,38 @@ const year = new Date().getFullYear();
 
 <footer class="site-footer">
   <div class="container">
-    <p class="footer__label mono">// NEXT</p>
-    <h2 class="footer__title">
-      下一个想法，<br />
-      <span class="accent">写下来。</span>
-    </h2>
+    <div class="footer-card">
+      <div class="footer-main">
+        <p class="footer__label mono">// NEXT</p>
+        <h2 class="footer__title">
+          下一个想法，<br />
+          <span class="accent">写下来。</span>
+        </h2>
+        <p class="footer__note">不追热点，只记录真正想明白的事。慢一点，但一直写。</p>
+      </div>
 
-    {
-      SITE.email ? (
-        <a class="footer__mail" href={`mailto:${SITE.email}`} data-magnetic>
-          {SITE.email}
-          <span aria-hidden="true">↗</span>
-        </a>
-      ) : (
-        <a class="footer__mail" href={SITE.github} target="_blank" rel="noreferrer" data-magnetic>
+      <div class="footer-side">
+        <a class="footer__mail" href={SITE.github} target="_blank" rel="noreferrer">
           {SITE.github.replace('https://', '')}
           <span aria-hidden="true">↗</span>
         </a>
-      )
-    }
+        <div class="footer__links mono">
+          <a href={SITE.github} target="_blank" rel="noreferrer">GITHUB</a>
+          <a href={withBase('/rss.xml')}>RSS</a>
+          <a href="#top">TOP ↑</a>
+        </div>
+      </div>
 
-    <div class="footer__bottom mono">
-      <span>© {year} {SITE.latinName} · 保留所有想法</span>
-      <span>BUILT WITH ASTRO · HOSTED ON GITHUB PAGES</span>
-      <div class="footer__links">
-        <a href={SITE.github} target="_blank" rel="noreferrer">GITHUB</a>
-        <a href={withBase('/rss.xml')}>RSS</a>
-        <a href="#top">TOP ↑</a>
+      <div class="footer__bottom mono">
+        <span>© {year} {SITE.latinName} · 保留所有想法</span>
+        <span>BUILT WITH ASTRO · HOSTED ON GITHUB PAGES</span>
+        <span class="footer__credit">
+          视觉参考
+          <a href="https://github.com/heiehiehi/XinghuisamaBlogs" target="_blank" rel="noreferrer">
+            XinghuisamaBlogs
+          </a>
+          · CC BY-NC 4.0
+        </span>
       </div>
     </div>
   </div>

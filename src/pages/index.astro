@@ -1,11 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Marquee from '../components/Marquee.astro';
-import PostRow from '../components/PostRow.astro';
-import NoteCard from '../components/NoteCard.astro';
-import { SITE } from '../consts';
-import { withBase } from '../utils';
+import { PHOTOS, SITE } from '../consts';
+import { excerpt, formatDate, withBase } from '../utils';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
@@ -15,160 +12,304 @@ const notes = (await getCollection('notes', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime(),
 );
 
-const tagCounts = new Map<string, number>();
-for (const post of posts) {
-  for (const tag of post.data.tags) {
-    tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
-  }
-}
+const latestPosts = posts.slice(0, 5);
+const latestNotes = notes.slice(0, 5);
+const poster = PHOTOS[0];
 
-const tagList = [...tagCounts.entries()].sort(
-  (a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'zh-CN'),
-);
+const searchIndex = posts.map((post) => ({
+  title: post.data.title,
+  description: post.data.description,
+  tags: post.data.tags,
+  date: formatDate(post.data.pubDate),
+  url: withBase(`/blog/${post.id}/`),
+}));
+
+const focus = [
+  { name: '重写这个博客', value: 78 },
+  { name: '机器人视觉识别', value: 55 },
+  { name: '保持写作的节奏', value: 34 },
+];
 ---
 
 <BaseLayout>
-  <section class="hero">
-    <canvas class="hero__canvas" data-particles aria-hidden="true"></canvas>
-
-    <div class="container hero__inner" data-hero>
-      <div class="hero__visual" aria-hidden="true">
-        <span class="hero__ring"></span>
-        <span class="hero__orb"></span>
-        <span class="hero__orb hero__orb--small"></span>
-      </div>
-
-      <p class="eyebrow mono">// 记录 · 思考 · 折腾</p>
-
-      <h1>
-        <span class="line line--sm">你好，我是</span>
-        <span class="line line--name">{SITE.latinName}<span class="dot">.</span></span>
-      </h1>
-
-      <p class="hero__intro">{SITE.intro}</p>
-
-      <div class="hero__actions">
-        <a class="btn btn--solid" href={withBase('/blog/')} data-magnetic>
-          开始阅读
-          <span class="arrow" aria-hidden="true">→</span>
-        </a>
-        <a class="btn btn--ghost" href={withBase('/about/')} data-magnetic>
-          关于我
-          <span class="arrow" aria-hidden="true">↗</span>
-        </a>
-      </div>
-
-      <div class="hero__meta mono">
-        <span>BASED IN {SITE.location}</span>
-        <span>BUILT WITH ASTRO</span>
-        <span>SINCE {SITE.since}</span>
-      </div>
+  <div class="dashboard">
+    <div class="search" data-search>
+      <form class="search__form" data-search-form role="search">
+        <label class="sr-only" for="site-search">搜索文章</label>
+        <input
+          id="site-search"
+          class="search__input"
+          type="search"
+          placeholder="搜寻标题、描述或标签..."
+          autocomplete="off"
+          spellcheck="false"
+          data-search-input
+        />
+        <span class="search__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7.5"></circle>
+            <path d="M20.5 20.5 16.1 16.1"></path>
+          </svg>
+        </span>
+      </form>
+      <div class="search__results" data-search-results hidden></div>
     </div>
 
-    <div class="hero__rail mono" aria-hidden="true">
-      <span>SCROLL</span>
-      <i></i>
-    </div>
-  </section>
+    <script
+      is:inline
+      type="application/json"
+      data-search-index
+      set:html={JSON.stringify(searchIndex).replace(/</g, '\\u003c')}
+    ></script>
 
-  <Marquee />
+    <div class="dash-grid">
+      <div class="dash-span-7">
+        <div class="dash-card profile-card">
+          <a
+            class="profile-card__link"
+            href={withBase('/about/')}
+            aria-label={`关于 ${SITE.name}`}
+          ></a>
 
-  <section class="stats-band">
-    <div class="container stats">
-      <div class="stat">
-        <span class="stat__num">{posts.length}</span>
-        <span class="stat__label mono">篇文章</span>
-      </div>
-      <div class="stat">
-        <span class="stat__num">{tagList.length}</span>
-        <span class="stat__label mono">个标签</span>
-      </div>
-      <div class="stat">
-        <span class="stat__num">{SITE.since}</span>
-        <span class="stat__label mono">开始记录</span>
-      </div>
-    </div>
-  </section>
+          <div class="profile__top">
+            <div class="profile__avatar">
+              <img
+                src={withBase('/images/avatar.jpg')}
+                alt={`${SITE.name} 的头像`}
+                width="96"
+                height="96"
+                loading="eager"
+                decoding="async"
+              />
+            </div>
+            <div class="profile__meta">
+              <h1 class="profile__name">{SITE.latinName}</h1>
+              <p class="profile__bio">{SITE.intro}</p>
+            </div>
+          </div>
 
-  <section class="section">
-    <div class="container">
-      <div class="section__head">
-        <div class="section__heading">
-          <span class="section__index mono">// 01 / LATEST</span>
-          <h2 class="section__title">最新文章</h2>
+          <div class="profile__bottom">
+            <div class="profile__stats">
+              <div class="profile__stat profile__stat--post">
+                <b>{posts.length}</b>
+                <span>文章</span>
+              </div>
+              <div class="profile__stat profile__stat--note">
+                <b>{notes.length}</b>
+                <span>杂谈</span>
+              </div>
+              <div class="profile__stat profile__stat--photo">
+                <b>{PHOTOS.length}</b>
+                <span>照片</span>
+              </div>
+            </div>
+
+            <div class="profile__socials">
+              <a
+                class="social-btn"
+                href={SITE.github}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="GitHub"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.379.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"
+                  ></path>
+                </svg>
+              </a>
+              <a class="social-btn" href={withBase('/rss.xml')} aria-label="RSS 订阅">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                  <path d="M4 11a9 9 0 0 1 9 9"></path>
+                  <path d="M4 4a16 16 0 0 1 16 16"></path>
+                  <circle cx="5" cy="19" r="1.6" fill="currentColor" stroke="none"></circle>
+                </svg>
+              </a>
+            </div>
+          </div>
         </div>
-        <a class="link-arrow" href={withBase('/blog/')}>
-          全部文章 <span aria-hidden="true">→</span>
-        </a>
       </div>
 
-      <div class="post-list">
-        {posts.slice(0, 4).map((post, index) => <PostRow post={post} index={index} />)}
-      </div>
-    </div>
-  </section>
+      <div class="dash-span-5">
+        <div class="dash-card now-card">
+          <p class="now-card__label"><i></i>NOW · 此刻</p>
+          <h2 class="now-card__title">正在把三件事<br />慢慢推进。</h2>
 
-  <section class="section">
-    <div class="container">
-      <div class="section__head">
-        <div class="section__heading">
-          <span class="section__index mono">// 02 / NOTES</span>
-          <h2 class="section__title">最近折腾</h2>
-        </div>
-        <a class="link-arrow" href={withBase('/notes/')}>
-          全部折腾 <span aria-hidden="true">→</span>
-        </a>
-      </div>
-
-      <div class="notes-grid">
-        {notes.slice(0, 3).map((note) => <NoteCard note={note} />)}
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="section__head">
-        <div class="section__heading">
-          <span class="section__index mono">// 03 / INDEX</span>
-          <h2 class="section__title">时间线与标签</h2>
-        </div>
-        <a class="link-arrow" href={withBase('/archive/')}>
-          完整归档 <span aria-hidden="true">→</span>
-        </a>
-      </div>
-
-      <div class="split">
-        <div>
-          <p class="mono" style="margin-bottom: 14px; color: var(--muted);">// 最近更新</p>
-          <div class="timeline">
+          <div class="now-list">
             {
-              posts.slice(0, 5).map((post) => (
-                <a class="timeline__item" href={withBase(`/blog/${post.id}/`)}>
-                  <span class="timeline__date mono">
-                    {post.data.pubDate.toISOString().slice(5, 10).replace('-', '.')}
-                  </span>
-                  <span class="timeline__title">{post.data.title}</span>
-                </a>
+              focus.map((item) => (
+                <div class="now-item">
+                  <div class="now-item__head">
+                    <span class="now-item__name">{item.name}</span>
+                    <span class="now-item__value">{item.value}%</span>
+                  </div>
+                  <div class="now-bar" style={`--p: ${item.value}%`}>
+                    <span></span>
+                  </div>
+                </div>
               ))
             }
           </div>
-        </div>
 
-        <aside class="split__side">
-          <p class="mono" style="margin-bottom: 14px; color: var(--muted);">// 标签云</p>
-          <div class="tag-cloud">
+          <div class="now-card__foot">
+            <span>{SITE.location} · 持续更新</span>
+            <a href={withBase('/about/')}>关于我 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dash-grid">
+      <div class="dash-span-4">
+        <div class="dash-card post-carousel" data-carousel data-interval="5000" aria-label="最新文章轮播">
+          {
+            latestPosts.map((post, index) => (
+              <a
+                class:list={[
+                  'carousel__slide',
+                  `tone-${(index % 5) + 1}`,
+                  { 'is-active': index === 0 },
+                ]}
+                href={withBase(`/blog/${post.id}/`)}
+                data-slide
+                aria-hidden={index === 0 ? undefined : 'true'}
+                tabindex={index === 0 ? undefined : -1}
+              >
+                <span class="carousel__ghost">{String(index + 1).padStart(2, '0')}</span>
+                <div class="carousel__content">
+                  <div class="carousel__meta">
+                    <span class="carousel__badge">Latest Insight</span>
+                    <span class="carousel__date">{formatDate(post.data.pubDate)}</span>
+                  </div>
+                  <h2 class="carousel__title">{post.data.title}</h2>
+                  <p class="carousel__desc">{post.data.description}</p>
+                  <span class="carousel__more">阅读全文 →</span>
+                </div>
+              </a>
+            ))
+          }
+
+          {
+            latestPosts.length > 1 && (
+              <div class="carousel__dots" aria-label="切换文章">
+                {latestPosts.map((post, index) => (
+                  <button
+                    class:list={['carousel__dot', { 'is-active': index === 0 }]}
+                    type="button"
+                    data-carousel-dot
+                    aria-label={`切换到第 ${index + 1} 篇：${post.data.title}`}
+                  ></button>
+                ))}
+              </div>
+            )
+          }
+        </div>
+      </div>
+
+      <div class="dash-span-8">
+        <a class="dash-card photo-poster" href={withBase('/photowall/')}>
+          <img
+            src={withBase(poster.src)}
+            alt={poster.alt}
+            width={poster.width}
+            height={poster.height}
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="photo-poster__shade"></span>
+          <span class="photo-poster__arrow" aria-hidden="true">↗</span>
+          <span class="photo-poster__content">
+            <span class="photo-poster__label">PHOTOWALL · {PHOTOS.length} PHOTOS</span>
+            <span class="photo-poster__title">光影集</span>
+            <span class="photo-poster__desc">把喜欢的瞬间挂起来，慢慢收集。</span>
+          </span>
+        </a>
+
+        <div class="dash-subgrid">
+          <div class="dash-card note-carousel" data-carousel data-interval="6000" aria-label="最新杂谈轮播">
             {
-              tagList.map(([tag, count]) => (
-                <a href={withBase(`/tags/${encodeURIComponent(tag)}/`)}>
-                  {tag}
-                  <span class="count">{count}</span>
+              latestNotes.map((note, index) => (
+                <a
+                  class:list={[
+                    'carousel__slide',
+                    `tone-${((index + 2) % 5) + 1}`,
+                    { 'is-active': index === 0 },
+                  ]}
+                  href={`${withBase('/notes/')}#note-${note.id}`}
+                  data-slide
+                  aria-hidden={index === 0 ? undefined : 'true'}
+                  tabindex={index === 0 ? undefined : -1}
+                >
+                  <div class="carousel__content">
+                    <div class="carousel__meta">
+                      <span class="carousel__badge">Records</span>
+                      <span class="carousel__date">{formatDate(note.data.date)}</span>
+                    </div>
+                    <h3 class="carousel__title">{note.data.title}</h3>
+                    <p class="carousel__desc">{excerpt(note.body, 84)}</p>
+                  </div>
                 </a>
               ))
             }
+
+            {
+              latestNotes.length > 1 && (
+                <div class="carousel__dots" aria-label="切换杂谈">
+                  {latestNotes.map((_, index) => (
+                    <button
+                      class:list={['carousel__dot', { 'is-active': index === 0 }]}
+                      type="button"
+                      data-carousel-dot
+                      aria-label={`切换到第 ${index + 1} 条杂谈`}
+                    ></button>
+                  ))}
+                </div>
+              )
+            }
           </div>
-        </aside>
+
+          <button class="dash-card theme-card" type="button" data-theme-toggle aria-label="切换明暗主题">
+            <span class="theme-card__orb" aria-hidden="true">
+              <span class="theme-card__day"></span>
+              <span class="theme-card__night"></span>
+              <span class="theme-card__icon theme-card__icon--sun">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                  <circle cx="12" cy="12" r="4"></circle>
+                  <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"></path>
+                </svg>
+              </span>
+              <span class="theme-card__icon theme-card__icon--moon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
+                  <path d="M20.5 13.3A8.5 8.5 0 1 1 10.7 3.5a6.6 6.6 0 0 0 9.8 9.8Z"></path>
+                </svg>
+              </span>
+            </span>
+            <span class="theme-card__title theme-card__title--day">日间模式</span>
+            <span class="theme-card__title theme-card__title--night">夜间模式</span>
+            <span class="theme-card__sub theme-card__sub--day">落樱漫舞的清晨</span>
+            <span class="theme-card__sub theme-card__sub--night">流萤飞舞的深空</span>
+            <span class="theme-card__hint">点击切换</span>
+          </button>
+        </div>
       </div>
     </div>
-  </section>
+
+    <div class="dash-card site-dash">
+      <div class="dash-clock">
+        <span data-clock>00:00:00</span>
+      </div>
+      <div class="dash-status">
+        <span class="dash-status__item">
+          <i class="dash-status__dot"></i>
+          系统已稳定运行：<b data-uptime data-since={`${SITE.since}-01-01T00:00:00`}>—</b>
+        </span>
+        <div class="dash-badges">
+          <span class="dash-badge">Astro 5</span>
+          <span class="dash-badge">GitHub Pages</span>
+          <span class="dash-badge">Glass UI</span>
+        </div>
+        <a class="dash-link" href={SITE.github} target="_blank" rel="noreferrer">GITHUB ↗</a>
+      </div>
+    </div>
+  </div>
 </BaseLayout>

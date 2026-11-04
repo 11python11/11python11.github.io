@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { PHOTOS } from '../consts';
+import { withBase } from '../utils';
+---
+
+<BaseLayout title="照片墙" description="光影集：一些喜欢的瞬间。">
+  <div class="photo-page">
+    <section class="page-hero" data-hero>
+      <p class="eyebrow mono">// 04 / PHOTOWALL</p>
+      <h1 class="page-hero__title">光影集<span class="accent">.</span></h1>
+      <p class="page-hero__desc">
+        不一定是大片，但都是当时想停下来的瞬间。把喜欢的画面挂在这里，慢慢收集。
+      </p>
+      <div class="page-hero__meta mono">
+        <span>{PHOTOS.length} 张照片</span>
+        <span>持续收集</span>
+        <span>2026</span>
+      </div>
+    </section>
+
+    <section class="photo-grid" aria-label="照片墙">
+      {
+        PHOTOS.map((photo, index) => (
+          <figure class="photo-item">
+            <img
+              src={withBase(photo.src)}
+              alt={photo.alt}
+              width={photo.width}
+              height={photo.height}
+              loading={index === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+            />
+            <span class="photo-item__shade" aria-hidden="true"></span>
+            <figcaption class="photo-item__caption">
+              <span class="photo-item__meta">{photo.meta}</span>
+              <h2 class="photo-item__title">{photo.title}</h2>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </section>
+
+    <p class="photo-note mono">// 照片会继续增加，慢慢来。</p>
+  </div>
+</BaseLayout>
