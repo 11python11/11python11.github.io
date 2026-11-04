@@ -19,11 +19,12 @@ function isActive(href: string): boolean {
     <a class="brand" href={withBase('/')} aria-label={`${SITE.name} 首页`}>
       <span class="brand__avatar">
         <img
-          src={withBase('/images/avatar.jpg')}
+          src={withBase('/images/avatar-192.jpg')}
           alt=""
-          width="36"
-          height="36"
+          width="192"
+          height="192"
           loading="eager"
+          fetchpriority="high"
           decoding="async"
         />
       </span>
