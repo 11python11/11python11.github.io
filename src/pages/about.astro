@@ -46,10 +46,14 @@ import { withBase } from '../utils';
           <span>GitHub</span>
           <span aria-hidden="true">↗</span>
         </a>
-        <a href={`mailto:${SITE.email}`}>
-          <span>Email</span>
-          <span>{SITE.email}</span>
-        </a>
+        {
+          SITE.email && (
+            <a href={`mailto:${SITE.email}`}>
+              <span>Email</span>
+              <span>{SITE.email}</span>
+            </a>
+          )
+        }
         <a href={withBase('/rss.xml')}>
           <span>RSS</span>
           <span>订阅更新</span>

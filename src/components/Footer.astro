@@ -13,10 +13,19 @@ const year = new Date().getFullYear();
       <span class="accent">写下来。</span>
     </h2>
 
-    <a class="footer__mail" href={`mailto:${SITE.email}`} data-magnetic>
-      {SITE.email}
-      <span aria-hidden="true">↗</span>
-    </a>
+    {
+      SITE.email ? (
+        <a class="footer__mail" href={`mailto:${SITE.email}`} data-magnetic>
+          {SITE.email}
+          <span aria-hidden="true">↗</span>
+        </a>
+      ) : (
+        <a class="footer__mail" href={SITE.github} target="_blank" rel="noreferrer" data-magnetic>
+          {SITE.github.replace('https://', '')}
+          <span aria-hidden="true">↗</span>
+        </a>
+      )
+    }
 
     <div class="footer__bottom mono">
       <span>© {year} {SITE.latinName} · 保留所有想法</span>
