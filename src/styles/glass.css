@@ -262,7 +262,6 @@ main {
 .note-carousel,
 .site-dash,
 .footer-card,
-.social-btn,
 .btn,
 .link-arrow,
 .theme-toggle {
@@ -878,37 +877,6 @@ main {
 
 .profile__stat--photo b {
   color: var(--accent-3);
-}
-
-.profile__socials {
-  display: flex;
-  gap: 8px;
-  margin-left: auto;
-  pointer-events: auto;
-}
-
-.social-btn {
-  display: grid;
-  width: 40px;
-  height: 40px;
-  place-items: center;
-  border-radius: 13px;
-  color: var(--ink);
-  background: var(--glass-soft);
-  transition: color 0.25s ease, background-color 0.25s ease, transform 0.25s ease,
-    border-color 0.25s ease;
-}
-
-.social-btn:hover {
-  border-color: transparent;
-  background: linear-gradient(135deg, #6366f1, #a855f7);
-  color: #fff;
-  transform: translateY(-2px);
-}
-
-.social-btn svg {
-  width: 17px;
-  height: 17px;
 }
 
 /* ---------- 此刻在做 ---------- */
@@ -2940,6 +2908,7 @@ main {
   font-family: var(--font-mono);
   font-size: 9.5px;
   letter-spacing: 0.08em;
+  text-transform: none;
 }
 
 .footer__credit a {
@@ -3252,10 +3221,6 @@ main {
   .profile__stats {
     width: 100%;
     justify-content: space-between;
-  }
-
-  .profile__socials {
-    justify-content: flex-end;
   }
 
   .page-hero__meta {
