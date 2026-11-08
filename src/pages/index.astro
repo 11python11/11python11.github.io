@@ -12,7 +12,7 @@ const notes = (await getCollection('notes', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime(),
 );
 
-const latestPosts = posts.slice(0, 5);
+const latestPosts = posts.slice(0, 1);
 const latestNotes = notes.slice(0, 5);
 const poster = PHOTOS[0];
 
