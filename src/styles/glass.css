@@ -818,21 +818,6 @@ main {
   min-height: 292px;
   padding: 28px;
   border-radius: var(--radius-lg);
-  border-color: rgba(255, 255, 255, 0.22);
-  background-color: transparent;
-  background-image:
-    linear-gradient(
-      100deg,
-      rgba(8, 6, 14, 0.94) 0%,
-      rgba(8, 6, 14, 0.78) 42%,
-      rgba(8, 6, 14, 0.42) 76%,
-      rgba(8, 6, 14, 0.58) 100%
-    ),
-    linear-gradient(0deg, rgba(8, 6, 14, 0.62), transparent 58%),
-    var(--profile-bg);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
 }
 
 .profile-card:hover {
@@ -885,21 +870,19 @@ main {
 .profile__name {
   margin: 0 0 6px;
   padding-bottom: 2px;
-  color: #fff;
+  color: var(--ink);
   font-family: var(--font-display);
   font-size: clamp(26px, 2.7vw, 32px);
   font-weight: 800;
   line-height: 1.15;
   letter-spacing: -0.03em;
-  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
 }
 
 .profile__bio {
   max-width: 46ch;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--muted);
   font-size: 14px;
   line-height: 1.8;
-  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
 }
 
 .profile__bottom {
@@ -936,7 +919,7 @@ main {
 .profile__stat span {
   display: block;
   margin-top: 3px;
-  color: rgba(255, 255, 255, 0.66);
+  color: var(--muted);
   font-family: var(--font-mono);
   font-size: 9px;
   letter-spacing: 0.14em;
@@ -944,15 +927,15 @@ main {
 }
 
 .profile__stat--post b {
-  color: #c7d2fe;
+  color: var(--accent-text);
 }
 
 .profile__stat--note b {
-  color: #e9d5ff;
+  color: var(--accent-2);
 }
 
 .profile__stat--photo b {
-  color: #fbcfe8;
+  color: var(--accent-3);
 }
 
 /* ---------- 此刻在做 ---------- */
