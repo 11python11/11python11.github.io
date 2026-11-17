@@ -821,6 +821,53 @@ main {
   min-height: 292px;
   padding: 28px;
   border-radius: var(--radius-lg);
+  border-color: rgba(255, 255, 255, 0.55);
+  background-color: #e9edf3;
+  background-image: none;
+}
+
+/* 完整保留插画：模糊同图铺底 + 原图 contain 居中，不裁剪不拉伸 */
+.profile-card__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.profile-card__bg::before {
+  content: '';
+  position: absolute;
+  inset: -44px;
+  background: var(--profile-bg) center / cover no-repeat;
+  filter: blur(40px) saturate(1.06) brightness(1.04);
+}
+
+.profile-card__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--profile-bg) center / contain no-repeat;
+}
+
+/* 浅色柔光罩，保证文字可读且不压暗插画 */
+.profile-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  background:
+    linear-gradient(to top, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 26%),
+    linear-gradient(
+      98deg,
+      rgba(255, 255, 255, 0.92) 0%,
+      rgba(255, 255, 255, 0.74) 36%,
+      rgba(255, 255, 255, 0.3) 66%,
+      rgba(255, 255, 255, 0) 88%
+    );
+  pointer-events: none;
 }
 
 .profile-card:hover {
@@ -873,7 +920,7 @@ main {
 .profile__name {
   margin: 0 0 6px;
   padding-bottom: 2px;
-  color: var(--ink);
+  color: #1b1430;
   font-family: var(--font-display);
   font-size: clamp(26px, 2.7vw, 32px);
   font-weight: 800;
@@ -883,7 +930,7 @@ main {
 
 .profile__bio {
   max-width: 46ch;
-  color: var(--muted);
+  color: rgba(24, 18, 44, 0.78);
   font-size: 14px;
   line-height: 1.8;
 }
@@ -922,7 +969,7 @@ main {
 .profile__stat span {
   display: block;
   margin-top: 3px;
-  color: var(--muted);
+  color: rgba(24, 18, 44, 0.62);
   font-family: var(--font-mono);
   font-size: 9px;
   letter-spacing: 0.14em;
@@ -930,15 +977,15 @@ main {
 }
 
 .profile__stat--post b {
-  color: var(--accent-text);
+  color: #4f46e5;
 }
 
 .profile__stat--note b {
-  color: var(--accent-2);
+  color: #9333ea;
 }
 
 .profile__stat--photo b {
-  color: var(--accent-3);
+  color: #db2777;
 }
 
 /* ---------- 此刻在做 ---------- */

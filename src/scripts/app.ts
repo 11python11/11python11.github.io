@@ -533,6 +533,33 @@ function initToc() {
 }
 
 /* ============================================================
+   液态玻璃：指针镜面高光（写入 --mx / --my 供 ::before 使用）
+   ============================================================ */
+const SHEEN_SELECTOR = '.dash-card, .post-row, .note-card, .tag-card';
+let sheenBound = false;
+
+function initLiquidSheen() {
+  if (sheenBound) return;
+  sheenBound = true;
+
+  if (reduceMotion || !window.matchMedia('(pointer: fine)').matches) return;
+
+  document.addEventListener(
+    'pointermove',
+    (event) => {
+      const target = event.target as HTMLElement | null;
+      const card = target?.closest<HTMLElement>(SHEEN_SELECTOR);
+      if (!card) return;
+
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty('--mx', `${event.clientX - rect.left}px`);
+      card.style.setProperty('--my', `${event.clientY - rect.top}px`);
+    },
+    { passive: true },
+  );
+}
+
+/* ============================================================
    每次换页后统一初始化
    ============================================================ */
 document.addEventListener('astro:page-load', () => {
@@ -543,4 +570,5 @@ document.addEventListener('astro:page-load', () => {
   initClock();
   initCodeBlocks();
   initToc();
+  initLiquidSheen();
 });
