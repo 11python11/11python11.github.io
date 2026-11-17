@@ -142,7 +142,13 @@ const focus = [
 
     <div class="dash-grid">
       <div class="dash-span-4">
-        <div class="dash-card post-carousel" data-carousel data-interval="5000" aria-label="最新文章轮播">
+        <div
+          class="dash-card post-carousel"
+          style={`--post-cover: url('${withBase('/images/desk.jpg')}')`}
+          data-carousel
+          data-interval="5000"
+          aria-label="最新文章轮播"
+        >
           {
             latestPosts.map((post, index) => (
               <a
