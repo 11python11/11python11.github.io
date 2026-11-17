@@ -1139,21 +1139,36 @@ main {
   background: var(--tone-5);
 }
 
-/* 最新文章卡：工位照片铺满整卡，只在左右方向拉伸 */
+/* 最新文章卡：完整原图居中，两侧用同图模糊铺满，不拉伸、不裁切 */
 .post-carousel .carousel__slide {
   background-color: #0c0913;
-  background-image: var(--post-cover);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-image: none;
 }
 
-.post-carousel .carousel__slide::before,
+.post-carousel .carousel__slide::before {
+  content: '';
+  position: absolute;
+  inset: -32px;
+  background: var(--post-cover) center / cover no-repeat;
+  filter: blur(56px) brightness(0.92) saturate(1.02);
+  pointer-events: none;
+}
+
 .post-carousel .carousel__slide::after {
-  display: none;
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: auto;
+  height: auto;
+  border: 0;
+  border-radius: inherit;
+  background: var(--post-cover) center / contain no-repeat;
+  box-shadow: none;
+  pointer-events: none;
 }
 
 .post-carousel .carousel__ghost {
+  z-index: 3;
   color: rgba(255, 255, 255, 0.32);
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.5);
 }
