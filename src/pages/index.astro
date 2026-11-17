@@ -68,7 +68,10 @@ const focus = [
 
     <div class="dash-grid">
       <div class="dash-span-7">
-        <div class="dash-card profile-card">
+        <div
+          class="dash-card profile-card"
+          style={`--profile-bg: url('${withBase('/images/desk.jpg')}')`}
+        >
           <a
             class="profile-card__link"
             href={withBase('/about/')}
