@@ -24,6 +24,7 @@ const { title, description = SITE.description, type = 'website' } = Astro.props;
 <html lang="zh-CN">
   <head>
     <BaseHead title={title} description={description} type={type} />
+    <slot name="head" />
     <script is:inline data-astro-rerun>
       (function () {
         var theme = 'light';

@@ -36,6 +36,16 @@ const focus = [
 ---
 
 <BaseLayout>
+  <Fragment slot="head">
+    <link
+      rel="preload"
+      as="image"
+      href={withBase('/images/profile-bg.webp')}
+      fetchpriority="high"
+    />
+    <link rel="preload" as="image" href={withBase('/images/desk.webp')} fetchpriority="high" />
+  </Fragment>
+
   <div class="dashboard">
     <div class="search" data-search>
       <form class="search__form" data-search-form role="search">
@@ -70,7 +80,7 @@ const focus = [
       <div class="dash-span-7">
         <div
           class="dash-card profile-card"
-          style={`--profile-bg: url('${withBase('/images/profile-bg.jpg')}')`}
+          style={`--profile-bg: url('${withBase('/images/profile-bg.webp')}')`}
         >
           <span class="profile-card__bg" aria-hidden="true"></span>
 
@@ -149,7 +159,7 @@ const focus = [
       <div class="dash-span-4">
         <div
           class="dash-card post-carousel"
-          style={`--post-cover: url('${withBase('/images/desk.jpg')}')`}
+          style={`--post-cover: url('${withBase('/images/desk.webp')}')`}
           data-carousel
           data-interval="5000"
           aria-label="最新文章轮播"

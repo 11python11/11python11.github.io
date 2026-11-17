@@ -825,6 +825,9 @@ main {
   border-color: rgba(255, 255, 255, 0.55);
   background-color: #e9edf3;
   background-image: none;
+  /* 插画铺满整卡，无需背景模糊，省掉一层 GPU 合成 */
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 /* 完整保留插画：模糊同图铺底 + 原图 contain 居中，不裁剪不拉伸 */
@@ -841,6 +844,7 @@ main {
   content: '';
   position: absolute;
   inset: -44px;
+  display: none;
   background: var(--profile-bg) center / cover no-repeat;
   filter: blur(40px) saturate(1.06) brightness(1.04);
 }
@@ -3393,6 +3397,10 @@ main {
   .profile-card {
     aspect-ratio: auto;
     min-height: 184px;
+  }
+
+  .profile-card__bg::before {
+    display: block;
   }
 }
 
