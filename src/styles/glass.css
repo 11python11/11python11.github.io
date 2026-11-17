@@ -800,13 +800,16 @@ main {
 
 .dash-span-8 {
   grid-column: span 8;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
 }
 
 .dash-subgrid {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
   gap: 22px;
-  margin-top: 22px;
+  margin-top: 0;
 }
 
 /* ---------- 资料卡 ---------- */
@@ -1066,8 +1069,9 @@ main {
 /* ---------- 文章轮播 ---------- */
 .post-carousel {
   position: relative;
-  min-height: 462px;
-  height: 100%;
+  aspect-ratio: 720 / 1280;
+  height: auto;
+  min-height: 0;
   overflow: hidden;
   border-radius: var(--radius-lg);
 }
@@ -1296,6 +1300,7 @@ main {
 .photo-poster {
   position: relative;
   display: block;
+  flex: 1 1 auto;
   min-height: 218px;
   overflow: hidden;
   border-radius: var(--radius-lg);
@@ -3044,7 +3049,8 @@ main {
   }
 
   .post-carousel {
-    min-height: 400px;
+    aspect-ratio: auto;
+    height: 462px;
   }
 
   .split {
@@ -3161,7 +3167,9 @@ main {
   }
 
   .post-carousel {
-    min-height: 360px;
+    aspect-ratio: 720 / 1280;
+    height: auto;
+    max-height: 640px;
   }
 
   .carousel__title {
