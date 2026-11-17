@@ -1139,13 +1139,13 @@ main {
   background: var(--tone-5);
 }
 
-/* 最新文章卡：工位照片完整铺底（不裁切、不拉伸、不压暗） */
+/* 最新文章卡：工位照片铺满整卡，只在左右方向拉伸 */
 .post-carousel .carousel__slide {
   background-color: #0c0913;
   background-image: var(--post-cover);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: 100% 100%;
 }
 
 .post-carousel .carousel__slide::before,
