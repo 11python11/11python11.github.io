@@ -285,7 +285,6 @@ main {
 .theme-card,
 .photo-poster,
 .post-carousel,
-.note-carousel,
 .site-dash,
 .footer-card,
 .btn,
@@ -1105,6 +1104,8 @@ main {
 
 /* ---------- 文章轮播 ---------- */
 .post-carousel {
+  display: block;
+  width: 100%;
   position: relative;
   aspect-ratio: 720 / 1280;
   height: auto;
@@ -1182,8 +1183,6 @@ main {
 
 /* 最新文章卡：完整原图居中，两侧用同图模糊铺满，不拉伸、不裁切 */
 .post-carousel .carousel__slide {
-  justify-content: flex-start;
-  padding: 26px 26px 40px;
   background-color: #0c0913;
   background-image: none;
 }
@@ -1210,67 +1209,75 @@ main {
   pointer-events: none;
 }
 
-.post-carousel .carousel__ghost {
-  top: auto;
-  right: 22px;
-  bottom: 18px;
-  z-index: 3;
-  color: rgba(255, 255, 255, 0.32);
-  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.5);
+/* ---------- 最新文章信息卡 ---------- */
+.latest-card {
+  position: relative;
+  min-height: 218px;
+  padding: 18px;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--tone-2);
 }
 
-.post-carousel .carousel__date {
-  color: rgba(255, 255, 255, 0.92);
-}
-
-/* 顶部文字区毛玻璃底板 */
-.post-carousel .carousel__content {
+.latest-card__panel {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 300px);
   padding: 12px 16px 13px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 16px;
-  background: linear-gradient(160deg, rgba(16, 12, 28, 0.5), rgba(16, 12, 28, 0.34));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 14px 32px rgba(0, 0, 0, 0.22);
+  background: linear-gradient(160deg, rgba(10, 8, 20, 0.5), rgba(10, 8, 20, 0.3));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 14px 32px rgba(0, 0, 0, 0.2);
   -webkit-backdrop-filter: blur(16px) saturate(145%);
   backdrop-filter: blur(16px) saturate(145%);
+  pointer-events: none;
 }
 
-.post-carousel .carousel__meta {
-  margin-bottom: 6px;
+.latest-card .carousel__meta {
+  margin-bottom: 8px;
 }
 
-.post-carousel .carousel__title {
-  margin-bottom: 5px;
+.latest-card .carousel__title {
+  margin: 0 0 6px;
+  font-size: 23px;
 }
 
-.post-carousel .carousel__desc {
-  margin-top: 0;
+.latest-card .carousel__desc {
+  color: rgba(255, 255, 255, 0.9);
+  -webkit-line-clamp: 2;
+}
+
+.latest-card .carousel__date {
   color: rgba(255, 255, 255, 0.92);
-  line-height: 1.7;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-.post-carousel .carousel__more {
-  margin-top: 8px;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+.latest-card .carousel__more {
+  margin-top: 10px;
 }
 
-.post-carousel .carousel__title,
-.post-carousel .carousel__date {
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
-}
-
-.carousel__ghost {
+.latest-card__ghost {
   position: absolute;
-  top: 16px;
-  right: 22px;
-  color: rgba(255, 255, 255, 0.18);
+  right: 6px;
+  bottom: -2px;
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.3);
   font-family: var(--font-display);
-  font-size: 96px;
+  font-size: 104px;
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.06em;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35);
   pointer-events: none;
 }
+
+.latest-card__link {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+}
+
+
 
 .carousel__content {
   position: relative;
@@ -1467,27 +1474,6 @@ main {
 .photo-poster:hover .photo-poster__arrow {
   background: rgba(255, 255, 255, 0.3);
   transform: rotate(-45deg);
-}
-
-/* ---------- 杂谈轮播 ---------- */
-.note-carousel {
-  position: relative;
-  min-height: 218px;
-  overflow: hidden;
-  border-radius: var(--radius-lg);
-}
-
-.note-carousel .carousel__slide {
-  padding: 24px 24px 42px;
-}
-
-.note-carousel .carousel__title {
-  font-size: 23px;
-  -webkit-line-clamp: 1;
-}
-
-.note-carousel .carousel__desc {
-  -webkit-line-clamp: 2;
 }
 
 /* ---------- 主题切换卡 ---------- */

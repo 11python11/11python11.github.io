@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { PHOTOS, SITE } from '../consts';
-import { excerpt, formatDate, withBase } from '../utils';
+import { formatDate, withBase } from '../utils';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
@@ -12,8 +12,7 @@ const notes = (await getCollection('notes', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime(),
 );
 
-const latestPosts = posts.slice(0, 1);
-const latestNotes = notes.slice(0, 5);
+const latestPost = posts[0];
 const poster = PHOTOS[0];
 
 const searchIndex = posts.map((post) => ({
@@ -157,55 +156,18 @@ const focus = [
 
     <div class="dash-grid">
       <div class="dash-span-4">
-        <div
-          class="dash-card post-carousel"
-          style={`--post-cover: url('${withBase('/images/desk.webp')}')`}
-          data-carousel
-          data-interval="5000"
-          aria-label="最新文章轮播"
-        >
-          {
-            latestPosts.map((post, index) => (
-              <a
-                class:list={[
-                  'carousel__slide',
-                  `tone-${(index % 5) + 1}`,
-                  { 'is-active': index === 0 },
-                ]}
-                href={withBase(`/blog/${post.id}/`)}
-                data-slide
-                aria-hidden={index === 0 ? undefined : 'true'}
-                tabindex={index === 0 ? undefined : -1}
-              >
-                <span class="carousel__ghost">{String(index + 1).padStart(2, '0')}</span>
-                <div class="carousel__content">
-                  <div class="carousel__meta">
-                    <span class="carousel__badge">Latest Insight</span>
-                    <span class="carousel__date">{formatDate(post.data.pubDate)}</span>
-                  </div>
-                  <h2 class="carousel__title">{post.data.title}</h2>
-                  <p class="carousel__desc">{post.data.description}</p>
-                  <span class="carousel__more">阅读全文 →</span>
-                </div>
-              </a>
-            ))
-          }
-
-          {
-            latestPosts.length > 1 && (
-              <div class="carousel__dots" aria-label="切换文章">
-                {latestPosts.map((post, index) => (
-                  <button
-                    class:list={['carousel__dot', { 'is-active': index === 0 }]}
-                    type="button"
-                    data-carousel-dot
-                    aria-label={`切换到第 ${index + 1} 篇：${post.data.title}`}
-                  ></button>
-                ))}
-              </div>
-            )
-          }
-        </div>
+        {
+          latestPost && (
+            <a
+              class="dash-card post-carousel"
+              style={`--post-cover: url('${withBase('/images/desk.webp')}')`}
+              href={withBase(`/blog/${latestPost.id}/`)}
+              aria-label={`阅读：${latestPost.data.title}`}
+            >
+              <span class="carousel__slide is-active" aria-hidden="true"></span>
+            </a>
+          )
+        }
       </div>
 
       <div class="dash-span-8">
@@ -228,47 +190,27 @@ const focus = [
         </a>
 
         <div class="dash-subgrid">
-          <div class="dash-card note-carousel" data-carousel data-interval="6000" aria-label="最新杂谈轮播">
-            {
-              latestNotes.map((note, index) => (
-                <a
-                  class:list={[
-                    'carousel__slide',
-                    `tone-${((index + 2) % 5) + 1}`,
-                    { 'is-active': index === 0 },
-                  ]}
-                  href={`${withBase('/notes/')}#note-${note.id}`}
-                  data-slide
-                  aria-hidden={index === 0 ? undefined : 'true'}
-                  tabindex={index === 0 ? undefined : -1}
-                >
-                  <div class="carousel__content">
-                    <div class="carousel__meta">
-                      <span class="carousel__badge">Records</span>
-                      <span class="carousel__date">{formatDate(note.data.date)}</span>
-                    </div>
-                    <h3 class="carousel__title">{note.data.title}</h3>
-                    <p class="carousel__desc">{excerpt(note.body, 84)}</p>
+          {
+            latestPost && (
+              <div class="dash-card latest-card" aria-label="最新文章">
+                <span class="latest-card__ghost" aria-hidden="true">01</span>
+                <div class="latest-card__panel">
+                  <div class="carousel__meta">
+                    <span class="carousel__badge">Latest Insight</span>
+                    <span class="carousel__date">{formatDate(latestPost.data.pubDate)}</span>
                   </div>
-                </a>
-              ))
-            }
-
-            {
-              latestNotes.length > 1 && (
-                <div class="carousel__dots" aria-label="切换杂谈">
-                  {latestNotes.map((_, index) => (
-                    <button
-                      class:list={['carousel__dot', { 'is-active': index === 0 }]}
-                      type="button"
-                      data-carousel-dot
-                      aria-label={`切换到第 ${index + 1} 条杂谈`}
-                    ></button>
-                  ))}
+                  <h2 class="carousel__title">{latestPost.data.title}</h2>
+                  <p class="carousel__desc">{latestPost.data.description}</p>
+                  <span class="carousel__more">阅读全文 →</span>
                 </div>
-              )
-            }
-          </div>
+                <a
+                  class="latest-card__link"
+                  href={withBase(`/blog/${latestPost.id}/`)}
+                  aria-label={`阅读：${latestPost.data.title}`}
+                ></a>
+              </div>
+            )
+          }
 
           <button class="dash-card theme-card" type="button" data-theme-toggle aria-label="切换明暗主题">
             <span class="theme-card__orb" aria-hidden="true">
