@@ -1218,15 +1218,31 @@ main {
   color: rgba(255, 255, 255, 0.92);
 }
 
-/* 文字区毛玻璃底板 */
+/* 文字区毛玻璃底板（收紧留白，减少遮挡） */
 .post-carousel .carousel__content {
-  padding: 18px 20px 20px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 22px;
-  background: linear-gradient(160deg, rgba(16, 12, 28, 0.56), rgba(16, 12, 28, 0.38));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 18px 40px rgba(0, 0, 0, 0.26);
-  -webkit-backdrop-filter: blur(18px) saturate(150%);
-  backdrop-filter: blur(18px) saturate(150%);
+  padding: 10px 14px 11px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  background: linear-gradient(160deg, rgba(16, 12, 28, 0.48), rgba(16, 12, 28, 0.3));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 12px 28px rgba(0, 0, 0, 0.2);
+  -webkit-backdrop-filter: blur(16px) saturate(145%);
+  backdrop-filter: blur(16px) saturate(145%);
+}
+
+.post-carousel .carousel__meta {
+  margin-bottom: 6px;
+}
+
+.post-carousel .carousel__title {
+  margin-bottom: 5px;
+}
+
+.post-carousel .carousel__desc {
+  line-height: 1.65;
+}
+
+.post-carousel .carousel__more {
+  margin-top: 8px;
 }
 
 .post-carousel .carousel__desc {
