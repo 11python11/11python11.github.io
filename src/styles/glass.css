@@ -1218,15 +1218,21 @@ main {
   color: rgba(255, 255, 255, 0.92);
 }
 
-/* 文字区毛玻璃底板（收紧留白，减少遮挡） */
-.post-carousel .carousel__content {
-  padding: 10px 14px 11px;
+/* 标题区紧凑毛玻璃底板，只遮住日期与标题 */
+.post-carousel .carousel__panel {
+  width: fit-content;
+  max-width: 100%;
+  padding: 8px 12px 10px;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 16px;
-  background: linear-gradient(160deg, rgba(16, 12, 28, 0.48), rgba(16, 12, 28, 0.3));
+  border-radius: 14px;
+  background: linear-gradient(160deg, rgba(16, 12, 28, 0.5), rgba(16, 12, 28, 0.32));
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 12px 28px rgba(0, 0, 0, 0.2);
-  -webkit-backdrop-filter: blur(16px) saturate(145%);
-  backdrop-filter: blur(16px) saturate(145%);
+  -webkit-backdrop-filter: blur(14px) saturate(145%);
+  backdrop-filter: blur(14px) saturate(145%);
+}
+
+.post-carousel .carousel__content {
+  padding: 0;
 }
 
 .post-carousel .carousel__meta {
@@ -1234,24 +1240,23 @@ main {
 }
 
 .post-carousel .carousel__title {
-  margin-bottom: 5px;
+  margin-bottom: 0;
 }
 
 .post-carousel .carousel__desc {
-  line-height: 1.65;
+  margin-top: 10px;
+  color: #fff;
+  font-weight: 500;
+  line-height: 1.7;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95), 0 0 12px rgba(0, 0, 0, 0.75);
 }
 
 .post-carousel .carousel__more {
   margin-top: 8px;
-}
-
-.post-carousel .carousel__desc {
-  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.85), 0 0 18px rgba(0, 0, 0, 0.55);
 }
 
 .post-carousel .carousel__title,
-.post-carousel .carousel__desc,
-.post-carousel .carousel__more,
 .post-carousel .carousel__date {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
 }
