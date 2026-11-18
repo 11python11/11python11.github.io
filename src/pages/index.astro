@@ -179,13 +179,11 @@ const focus = [
               >
                 <span class="carousel__ghost">{String(index + 1).padStart(2, '0')}</span>
                 <div class="carousel__content">
-                  <div class="carousel__panel">
-                    <div class="carousel__meta">
-                      <span class="carousel__badge">Latest Insight</span>
-                      <span class="carousel__date">{formatDate(post.data.pubDate)}</span>
-                    </div>
-                    <h2 class="carousel__title">{post.data.title}</h2>
+                  <div class="carousel__meta">
+                    <span class="carousel__badge">Latest Insight</span>
+                    <span class="carousel__date">{formatDate(post.data.pubDate)}</span>
                   </div>
+                  <h2 class="carousel__title">{post.data.title}</h2>
                   <p class="carousel__desc">{post.data.description}</p>
                   <span class="carousel__more">阅读全文 →</span>
                 </div>
