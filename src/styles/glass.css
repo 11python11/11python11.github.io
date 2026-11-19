@@ -901,8 +901,8 @@ main {
 .profile__name {
   margin: 0 0 6px;
   padding-bottom: 2px;
-  color: #1b1430;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9), 0 0 14px rgba(255, 255, 255, 0.85);
+  color: #120b26;
+  text-shadow: 0 1px 1px #fff, 0 0 4px rgba(255, 255, 255, 0.95), 0 0 16px rgba(255, 255, 255, 0.9);
   font-family: var(--font-display);
   font-size: clamp(26px, 2.7vw, 32px);
   font-weight: 800;
@@ -912,10 +912,14 @@ main {
 
 .profile__bio {
   max-width: 46ch;
-  color: rgba(24, 18, 44, 0.78);
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9), 0 0 10px rgba(255, 255, 255, 0.8);
-  font-size: 14px;
-  line-height: 1.8;
+  color: #120b26;
+  text-shadow: 0 2px 0 #fff, 0 -2px 0 #fff, 2px 0 0 #fff, -2px 0 0 #fff,
+    2px 2px 0 #fff, -2px 2px 0 #fff, 2px -2px 0 #fff, -2px -2px 0 #fff,
+    0 0 12px rgba(255, 255, 255, 0.9);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
 }
 
 .profile__bottom {
@@ -942,7 +946,7 @@ main {
 
 .profile__stat b {
   display: block;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9), 0 0 12px rgba(255, 255, 255, 0.8);
+  text-shadow: 0 1px 1px #fff, 0 0 8px rgba(255, 255, 255, 0.95), 0 0 16px rgba(255, 255, 255, 0.8);
   font-family: var(--font-display);
   font-size: 24px;
   font-weight: 800;
@@ -953,11 +957,14 @@ main {
 .profile__stat span {
   display: block;
   margin-top: 3px;
-  color: rgba(24, 18, 44, 0.62);
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.85), 0 0 8px rgba(255, 255, 255, 0.75);
+  color: #120b26;
+  text-shadow: 0 2px 0 #fff, 0 -2px 0 #fff, 2px 0 0 #fff, -2px 0 0 #fff,
+    2px 2px 0 #fff, -2px 2px 0 #fff, 2px -2px 0 #fff, -2px -2px 0 #fff,
+    0 0 10px rgba(255, 255, 255, 0.85);
   font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.14em;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
