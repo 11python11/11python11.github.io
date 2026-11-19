@@ -855,6 +855,19 @@ main {
   background: var(--profile-bg) center / contain no-repeat;
 }
 
+/* 轻玻璃层：压低插画亮度，提升文字对比 */
+.profile-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  background: rgba(255, 255, 255, 0.18);
+  -webkit-backdrop-filter: blur(2px) saturate(108%);
+  backdrop-filter: blur(2px) saturate(108%);
+  pointer-events: none;
+}
+
 .profile-card:hover {
   transform: translateY(-2px);
 }
