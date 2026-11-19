@@ -8,7 +8,6 @@ import '../styles/glass.css';
 import { ClientRouter } from 'astro:transitions';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 import { SITE } from '../consts';
 
 interface Props {
@@ -69,8 +68,6 @@ const { title, description = SITE.description, type = 'website' } = Astro.props;
     <main id="main">
       <slot />
     </main>
-
-    <Footer />
 
     <script>
       import '../scripts/app';

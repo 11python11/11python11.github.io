@@ -13,10 +13,6 @@
   --accent-text: #b93210;
   --accent-soft: rgba(223, 63, 20, 0.08);
   --code-bg: #efebe2;
-  --footer-bg: #14120e;
-  --footer-ink: #f4f1ea;
-  --footer-muted: rgba(244, 241, 234, 0.55);
-  --footer-line: rgba(244, 241, 234, 0.18);
   --font-display: 'Bricolage Grotesque Variable', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
   --font-body: 'Bricolage Grotesque Variable', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
   --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
@@ -37,10 +33,6 @@
   --accent-text: #ff8d69;
   --accent-soft: rgba(255, 106, 61, 0.12);
   --code-bg: #12100c;
-  --footer-bg: #17140f;
-  --footer-ink: #f2eee6;
-  --footer-muted: rgba(242, 238, 230, 0.55);
-  --footer-line: rgba(242, 238, 230, 0.16);
 }
 
 /* ============================================================
@@ -943,78 +935,6 @@ button {
 }
 
 /* ============================================================
-   页脚
-   ============================================================ */
-.site-footer {
-  background: var(--footer-bg);
-  color: var(--footer-ink);
-}
-
-.site-footer .container {
-  padding-block: clamp(60px, 8vw, 108px) 30px;
-}
-
-.footer__label {
-  color: var(--accent);
-}
-
-.footer__title {
-  margin-top: 22px;
-  font-family: var(--font-display);
-  font-size: clamp(44px, 8vw, 108px);
-  font-weight: 800;
-  line-height: 0.95;
-  letter-spacing: -0.045em;
-}
-
-.footer__title .accent {
-  color: var(--accent);
-}
-
-.footer__mail {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 38px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--footer-line);
-  font-family: var(--font-mono);
-  font-size: clamp(13px, 1.6vw, 18px);
-  letter-spacing: 0.06em;
-  transition: color 0.25s ease, border-color 0.25s ease;
-}
-
-.footer__mail:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.footer__bottom {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: clamp(52px, 7vw, 92px);
-  padding-top: 22px;
-  border-top: 1px solid var(--footer-line);
-  color: var(--footer-muted);
-}
-
-.footer__links {
-  display: flex;
-  gap: 18px;
-}
-
-.footer__links a {
-  transition: color 0.25s ease;
-}
-
-.footer__links a:hover {
-  color: var(--accent);
-}
-
-/* ============================================================
    列表页头部
    ============================================================ */
 .page-hero {
@@ -1743,11 +1663,6 @@ button {
 
 @media (max-width: 820px) {
   .section__head {
-    align-items: flex-start;
-  }
-
-  .footer__bottom {
-    flex-direction: column;
     align-items: flex-start;
   }
 

@@ -251,14 +251,11 @@ h4 {
   }
 }
 
-main,
-.site-footer {
+main {
   position: relative;
   z-index: 1;
-}
-
-main {
   padding-top: var(--header-h);
+  padding-bottom: clamp(24px, 4vw, 40px);
 }
 
 /* ============================================================
@@ -286,7 +283,6 @@ main {
 .photo-poster,
 .post-carousel,
 .site-dash,
-.footer-card,
 .btn,
 .link-arrow,
 .theme-toggle {
@@ -2983,128 +2979,6 @@ main {
 }
 
 /* ============================================================
-   页脚
-   ============================================================ */
-.site-footer {
-  padding: 20px 0 40px;
-  background: transparent;
-  color: var(--ink);
-}
-
-.site-footer .container {
-  padding-block: 0;
-}
-
-.footer-card {
-  display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
-  gap: 24px;
-  padding: clamp(24px, 3.6vw, 38px);
-  border-radius: var(--radius-lg);
-}
-
-.footer__label {
-  color: var(--accent-text);
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.footer__title {
-  margin-top: 10px;
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-size: clamp(30px, 4.6vw, 48px);
-  font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: -0.04em;
-}
-
-.footer__title .accent {
-  color: var(--accent);
-}
-
-.footer__note {
-  max-width: 42ch;
-  margin-top: 12px;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.8;
-}
-
-.footer-side {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 18px;
-}
-
-.footer__mail {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  margin-top: 0;
-  padding: 8px 14px;
-  border: 1px solid var(--glass-border-soft);
-  border-radius: var(--pill);
-  background: var(--glass-soft);
-  color: var(--ink);
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.04em;
-  transition: color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
-}
-
-.footer__mail:hover {
-  background: var(--glass-strong);
-  color: var(--accent-text);
-  transform: translateY(-1px);
-}
-
-.footer__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  color: var(--muted);
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.footer__links a {
-  transition: color 0.25s ease;
-}
-
-.footer__links a:hover {
-  color: var(--accent-text);
-}
-
-.footer__bottom {
-  display: flex;
-  grid-column: 1 / -1;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px 20px;
-  margin-top: 4px;
-  padding-top: 18px;
-  border-top: 1px solid var(--line);
-  color: var(--muted);
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  letter-spacing: 0.08em;
-  text-transform: none;
-}
-
-.footer__credit a {
-  color: var(--accent-text);
-  border-bottom: 1px dashed var(--accent);
-}
-
-/* ============================================================
    响应式
    ============================================================ */
 @media (max-width: 1024px) {
@@ -3137,16 +3011,6 @@ main {
 
   .about-grid {
     grid-template-columns: 1fr;
-  }
-
-  .footer-card {
-    grid-template-columns: 1fr;
-  }
-
-  .footer-side {
-    align-items: flex-start;
-    flex-direction: row;
-    flex-wrap: wrap;
   }
 
   .photo-grid {
@@ -3370,15 +3234,6 @@ main {
 
   .photo-page {
     padding-top: 20px;
-  }
-
-  .footer__title {
-    font-size: clamp(28px, 7vw, 36px);
-  }
-
-  .footer__bottom {
-    flex-direction: column;
-    align-items: flex-start;
   }
 }
 
