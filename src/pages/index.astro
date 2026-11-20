@@ -1,27 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { PHOTOS, SITE } from '../consts';
-import { formatDate, withBase } from '../utils';
+import { withBase } from '../utils';
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
-  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
-);
-
-const notes = (await getCollection('notes', ({ data }) => !data.draft)).sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
-);
-
-const latestPost = posts[0];
 const poster = PHOTOS[0];
-
-const searchIndex = posts.map((post) => ({
-  title: post.data.title,
-  description: post.data.description,
-  tags: post.data.tags,
-  date: formatDate(post.data.pubDate),
-  url: withBase(`/blog/${post.id}/`),
-}));
 
 const focus = [
   { name: 'spider 基础', value: 56 },
@@ -42,39 +24,9 @@ const focus = [
       href={withBase('/images/profile-bg.webp')}
       fetchpriority="high"
     />
-    <link rel="preload" as="image" href={withBase('/images/desk.webp')} fetchpriority="high" />
   </Fragment>
 
   <div class="dashboard">
-    <div class="search" data-search>
-      <form class="search__form" data-search-form role="search">
-        <label class="sr-only" for="site-search">搜索文章</label>
-        <input
-          id="site-search"
-          class="search__input"
-          type="search"
-          placeholder="搜寻标题、描述或标签..."
-          autocomplete="off"
-          spellcheck="false"
-          data-search-input
-        />
-        <span class="search__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-            <circle cx="11" cy="11" r="7.5"></circle>
-            <path d="M20.5 20.5 16.1 16.1"></path>
-          </svg>
-        </span>
-      </form>
-      <div class="search__results" data-search-results hidden></div>
-    </div>
-
-    <script
-      is:inline
-      type="application/json"
-      data-search-index
-      set:html={JSON.stringify(searchIndex).replace(/</g, '\\u003c')}
-    ></script>
-
     <div class="dash-grid">
       <div class="dash-span-7">
         <div
@@ -82,12 +34,6 @@ const focus = [
           style={`--profile-bg: url('${withBase('/images/profile-bg.webp')}')`}
         >
           <span class="profile-card__bg" aria-hidden="true"></span>
-
-          <a
-            class="profile-card__link"
-            href={withBase('/about/')}
-            aria-label={`关于 ${SITE.name}`}
-          ></a>
 
           <div class="profile__top">
             <div class="profile__avatar">
@@ -130,33 +76,18 @@ const focus = [
           </div>
 
           <div class="now-card__foot">
-            <span>
-              {SITE.location} · {posts.length} 篇文章 · {notes.length} 条杂谈 · {PHOTOS.length} 张照片
-            </span>
-            <a href={withBase('/about/')}>关于我 →</a>
+            <span>{SITE.location} · 持续更新</span>
           </div>
         </div>
       </div>
     </div>
 
     <div class="dash-grid">
-      <div class="dash-span-4">
-        {
-          latestPost && (
-            <a
-              class="dash-card post-carousel"
-              style={`--post-cover: url('${withBase('/images/desk.webp')}')`}
-              href={withBase(`/blog/${latestPost.id}/`)}
-              aria-label={`阅读：${latestPost.data.title}`}
-            >
-              <span class="carousel__slide is-active" aria-hidden="true"></span>
-            </a>
-          )
-        }
-      </div>
-
       <div class="dash-span-8">
-        <a class="dash-card photo-poster" href={withBase('/photowall/')}>
+        <div
+          class="dash-card photo-poster photo-poster--static"
+          style={`--poster-ratio: ${poster.width} / ${poster.height}`}
+        >
           <img
             src={withBase(poster.src)}
             alt={poster.alt}
@@ -166,60 +97,37 @@ const focus = [
             decoding="async"
           />
           <span class="photo-poster__shade"></span>
-          <span class="photo-poster__arrow" aria-hidden="true">↗</span>
           <span class="photo-poster__content">
-            <span class="photo-poster__label">PHOTOWALL · {PHOTOS.length} PHOTOS</span>
+            <span class="photo-poster__label">PHOTO · 2026</span>
             <span class="photo-poster__title">光影集</span>
             <span class="photo-poster__desc">把喜欢的瞬间挂起来，慢慢收集。</span>
           </span>
-        </a>
-
-        <div class="dash-subgrid">
-          {
-            latestPost && (
-              <div class="dash-card latest-card" aria-label="最新文章">
-                <span class="latest-card__ghost" aria-hidden="true">01</span>
-                <div class="latest-card__panel">
-                  <div class="carousel__meta">
-                    <span class="carousel__badge">Latest · 最新</span>
-                    <span class="carousel__date">{formatDate(latestPost.data.pubDate)}</span>
-                  </div>
-                  <h2 class="carousel__title">{latestPost.data.title}</h2>
-                  <p class="carousel__desc">{latestPost.data.description}</p>
-                  <span class="carousel__more">阅读全文 →</span>
-                </div>
-                <a
-                  class="latest-card__link"
-                  href={withBase(`/blog/${latestPost.id}/`)}
-                  aria-label={`阅读：${latestPost.data.title}`}
-                ></a>
-              </div>
-            )
-          }
-
-          <button class="dash-card theme-card" type="button" data-theme-toggle aria-label="切换明暗主题">
-            <span class="theme-card__orb" aria-hidden="true">
-              <span class="theme-card__day"></span>
-              <span class="theme-card__night"></span>
-              <span class="theme-card__icon theme-card__icon--sun">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-                  <circle cx="12" cy="12" r="4"></circle>
-                  <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"></path>
-                </svg>
-              </span>
-              <span class="theme-card__icon theme-card__icon--moon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
-                  <path d="M20.5 13.3A8.5 8.5 0 1 1 10.7 3.5a6.6 6.6 0 0 0 9.8 9.8Z"></path>
-                </svg>
-              </span>
-            </span>
-            <span class="theme-card__title theme-card__title--day">日间模式</span>
-            <span class="theme-card__title theme-card__title--night">夜间模式</span>
-            <span class="theme-card__sub theme-card__sub--day">有光的白天</span>
-            <span class="theme-card__sub theme-card__sub--night">安静下来的夜晚</span>
-            <span class="theme-card__hint">点击切换</span>
-          </button>
         </div>
+      </div>
+
+      <div class="dash-span-4">
+        <button class="dash-card theme-card" type="button" data-theme-toggle aria-label="切换明暗主题">
+          <span class="theme-card__orb" aria-hidden="true">
+            <span class="theme-card__day"></span>
+            <span class="theme-card__night"></span>
+            <span class="theme-card__icon theme-card__icon--sun">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"></path>
+              </svg>
+            </span>
+            <span class="theme-card__icon theme-card__icon--moon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
+                <path d="M20.5 13.3A8.5 8.5 0 1 1 10.7 3.5a6.6 6.6 0 0 0 9.8 9.8Z"></path>
+              </svg>
+            </span>
+          </span>
+          <span class="theme-card__title theme-card__title--day">日间模式</span>
+          <span class="theme-card__title theme-card__title--night">夜间模式</span>
+          <span class="theme-card__sub theme-card__sub--day">有光的白天</span>
+          <span class="theme-card__sub theme-card__sub--night">安静下来的夜晚</span>
+          <span class="theme-card__hint">点击切换</span>
+        </button>
       </div>
     </div>
 

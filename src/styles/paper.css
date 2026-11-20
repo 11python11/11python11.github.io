@@ -473,8 +473,12 @@ h4 {
   border-radius: 12px;
 }
 
+.profile-card:hover {
+  transform: none;
+}
+
 .profile-card:hover .profile__avatar {
-  transform: scale(1.02);
+  transform: none;
 }
 
 .profile__name {
@@ -582,7 +586,7 @@ h4 {
 
 /* ---------- 最新文章卡 ---------- */
 .latest-card {
-  padding: 16px;
+  padding: 20px;
 }
 
 .latest-card::after {
@@ -590,18 +594,18 @@ h4 {
 }
 
 .latest-card__panel {
-  width: min(100%, 290px);
-  padding: 12px 15px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--glass-read);
-  box-shadow: 0 2px 6px rgba(50, 35, 20, 0.04);
+  width: 100%;
+  padding: 0 44px 0 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
 
 .latest-card .carousel__title {
-  font-size: 21px;
+  font-size: 23px;
   font-weight: 750;
 }
 
@@ -636,9 +640,25 @@ h4 {
   background: #2b241c;
 }
 
+.photo-poster--static {
+  flex: none;
+  min-height: 0;
+  aspect-ratio: var(--poster-ratio, 16 / 9);
+}
+
 .photo-poster:hover {
   transform: translateY(-1px);
   box-shadow: var(--glass-shadow);
+}
+
+.photo-poster--static:hover,
+.photo-poster--static:hover img,
+.photo-poster--static:hover .photo-poster__content {
+  transform: none;
+}
+
+.photo-poster--static:hover {
+  box-shadow: var(--glass-shadow-sm), var(--glass-highlight);
 }
 
 .photo-poster__shade {

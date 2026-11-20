@@ -9,15 +9,12 @@ import { withBase } from '../utils';
     <div class="error-page__code">404</div>
     <h1 class="error-page__title">这一页还没被写下来。</h1>
     <p class="error-page__desc">
-      链接可能拼错了，或者这篇文章已经被移走。回到首页，或者去文章列表里找找。
+      链接可能拼错了，或者这一页已经不存在。回到首页看看。
     </p>
     <div class="hero__actions">
       <a class="btn btn--solid" href={withBase('/')}>
         回到首页
         <span class="arrow" aria-hidden="true">→</span>
-      </a>
-      <a class="btn btn--ghost" href={withBase('/blog/')}>
-        浏览文章
       </a>
     </div>
   </section>
