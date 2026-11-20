@@ -24,6 +24,7 @@ const focus = [
       href={withBase('/images/profile-bg.webp')}
       fetchpriority="high"
     />
+    <link rel="preload" as="image" href={withBase('/images/desk.webp')} fetchpriority="high" />
   </Fragment>
 
   <div class="dashboard">
@@ -83,6 +84,17 @@ const focus = [
     </div>
 
     <div class="dash-grid">
+      <div class="dash-span-4">
+        <div
+          class="dash-card post-carousel post-carousel--static"
+          style={`--post-cover: url('${withBase('/images/desk.webp')}')`}
+          role="img"
+          aria-label="书桌照片"
+        >
+          <span class="carousel__slide is-active" aria-hidden="true"></span>
+        </div>
+      </div>
+
       <div class="dash-span-8">
         <div
           class="dash-card photo-poster photo-poster--static"
@@ -103,9 +115,7 @@ const focus = [
             <span class="photo-poster__desc">把喜欢的瞬间挂起来，慢慢收集。</span>
           </span>
         </div>
-      </div>
 
-      <div class="dash-span-4">
         <button class="dash-card theme-card" type="button" data-theme-toggle aria-label="切换明暗主题">
           <span class="theme-card__orb" aria-hidden="true">
             <span class="theme-card__day"></span>

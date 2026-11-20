@@ -584,6 +584,16 @@ h4 {
   filter: blur(40px) brightness(0.9) saturate(0.98);
 }
 
+.post-carousel--static:hover {
+  box-shadow: var(--glass-shadow-sm), var(--glass-highlight);
+}
+
+.dash-span-8 > .theme-card {
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 218px;
+}
+
 /* ---------- 最新文章卡 ---------- */
 .latest-card {
   padding: 20px;
@@ -1385,6 +1395,10 @@ h4 {
 
   .now-card {
     padding: 22px;
+  }
+
+  .dash-span-8 > .theme-card {
+    min-height: 180px;
   }
 
   .now-card__title {
