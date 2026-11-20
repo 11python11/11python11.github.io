@@ -12,7 +12,7 @@ const NIGHT_END = 6;
 function syncThemeColor(theme: 'light' | 'dark') {
   const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
   if (meta) {
-    meta.setAttribute('content', theme === 'dark' ? '#17130f' : '#f3eee4');
+    meta.setAttribute('content', theme === 'dark' ? '#17130f' : '#f1eadf');
   }
 }
 

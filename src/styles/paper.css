@@ -7,22 +7,22 @@
    ============================================================ */
 :root {
   color-scheme: light;
-  --bg: #f3eee4;
-  --ink: #211d18;
-  --muted: #726858;
-  --line: rgba(33, 29, 24, 0.14);
-  --line-strong: rgba(33, 29, 24, 0.3);
+  --bg: #f1eadf;
+  --ink: #15110d;
+  --muted: #5a5044;
+  --line: rgba(21, 17, 13, 0.17);
+  --line-strong: rgba(21, 17, 13, 0.34);
   --accent: #b54524;
   --accent-text: #9d3a1d;
   --accent-soft: rgba(181, 69, 36, 0.08);
   --accent-2: #8a6a3a;
   --accent-3: #5f7156;
-  --glass: rgba(255, 252, 246, 0.58);
-  --glass-strong: rgba(255, 252, 246, 0.84);
+  --glass: rgba(255, 253, 248, 0.68);
+  --glass-strong: rgba(255, 253, 248, 0.9);
   --glass-soft: rgba(255, 252, 246, 0.34);
-  --glass-read: rgba(255, 253, 248, 0.93);
-  --glass-border: rgba(58, 48, 37, 0.14);
-  --glass-border-soft: rgba(58, 48, 37, 0.09);
+  --glass-read: rgba(255, 253, 249, 0.97);
+  --glass-border: rgba(58, 48, 37, 0.16);
+  --glass-border-soft: rgba(58, 48, 37, 0.1);
   --glass-shadow: 0 14px 34px rgba(66, 49, 30, 0.08);
   --glass-shadow-sm: 0 3px 12px rgba(66, 49, 30, 0.05);
   --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.7),
@@ -43,10 +43,10 @@
 :root[data-theme='dark'] {
   color-scheme: dark;
   --bg: #17130f;
-  --ink: #eae3d6;
-  --muted: #a29786;
-  --line: rgba(234, 227, 214, 0.12);
-  --line-strong: rgba(234, 227, 214, 0.26);
+  --ink: #f4eee4;
+  --muted: #b9ad9c;
+  --line: rgba(244, 238, 228, 0.13);
+  --line-strong: rgba(244, 238, 228, 0.28);
   --accent: #df8055;
   --accent-text: #eda07a;
   --accent-soft: rgba(223, 128, 85, 0.12);
@@ -56,8 +56,8 @@
   --glass-strong: rgba(52, 44, 36, 0.82);
   --glass-soft: rgba(255, 255, 255, 0.05);
   --glass-read: rgba(38, 32, 26, 0.95);
-  --glass-border: rgba(234, 227, 214, 0.14);
-  --glass-border-soft: rgba(234, 227, 214, 0.08);
+  --glass-border: rgba(244, 238, 228, 0.14);
+  --glass-border-soft: rgba(244, 238, 228, 0.08);
   --glass-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
   --glass-shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.26);
   --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.07),
@@ -73,6 +73,7 @@
 
 /* ---------- 背景：一张纸，而不是流动的极光 ---------- */
 body {
+  font-weight: 500;
   transition: background-color 0.35s ease, color 0.35s ease;
 }
 
@@ -246,7 +247,7 @@ h4 {
 
 .nav__link {
   color: var(--muted);
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.01em;
 }
@@ -363,7 +364,7 @@ h4 {
   margin-right: 2px;
   -webkit-appearance: none;
   background: center / 10px 10px no-repeat
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23726858' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6 6 18'/%3E%3C/svg%3E");
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235a5044' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6 6 18'/%3E%3C/svg%3E");
   opacity: 0.7;
   cursor: pointer;
 }
@@ -373,7 +374,7 @@ h4 {
 }
 
 [data-theme='dark'] .search__input::-webkit-search-cancel-button {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a29786' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6 6 18'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b9ad9c' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6 6 18'/%3E%3C/svg%3E");
 }
 
 .search__icon {
@@ -526,7 +527,7 @@ h4 {
 .now-card__title {
   margin: 12px 0 18px;
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 750;
   letter-spacing: -0.02em;
 }
 
@@ -537,6 +538,10 @@ h4 {
 .now-item__name {
   font-size: 13px;
   font-weight: 500;
+}
+
+.now-item__value {
+  font-size: 10px;
 }
 
 .now-bar {
@@ -552,7 +557,7 @@ h4 {
 
 .now-card__foot {
   padding-top: 16px;
-  font-size: 9px;
+  font-size: 9.5px;
 }
 
 /* ---------- 文章照片卡 ---------- */
@@ -586,7 +591,7 @@ h4 {
 
 .latest-card .carousel__title {
   font-size: 21px;
-  font-weight: 700;
+  font-weight: 750;
 }
 
 .latest-card .carousel__badge {
@@ -606,7 +611,7 @@ h4 {
 
 .carousel__badge {
   border-radius: 3px;
-  font-size: 8px;
+  font-size: 8.5px;
 }
 
 .carousel__title {
@@ -627,6 +632,10 @@ h4 {
 
 .photo-poster__shade {
   background: linear-gradient(180deg, rgba(15, 11, 8, 0.03) 20%, rgba(15, 11, 8, 0.78) 100%);
+}
+
+.photo-poster__desc {
+  font-size: 13.5px;
 }
 
 .photo-poster__title {
@@ -679,7 +688,11 @@ h4 {
 
 .theme-card__title {
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 750;
+}
+
+.theme-card__sub {
+  font-size: 11.5px;
 }
 
 .theme-card__hint {
@@ -714,7 +727,7 @@ h4 {
 
 .dash-status {
   padding: 14px 22px;
-  font-size: 12.5px;
+  font-size: 13px;
 }
 
 .dash-status__dot {
@@ -729,12 +742,12 @@ h4 {
   padding: 4px 8px;
   border-radius: 4px;
   background: transparent;
-  font-size: 8.5px;
+  font-size: 9px;
 }
 
 .dash-link {
   border-bottom: 1px dashed var(--accent);
-  font-size: 9px;
+  font-size: 9.5px;
 }
 
 /* ---------- 内页页头：从玻璃大卡改成开放报头 ---------- */
@@ -766,7 +779,7 @@ h4 {
 .page-hero__title {
   margin-top: 12px;
   font-size: clamp(34px, 5.2vw, 56px);
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.08;
   letter-spacing: -0.025em;
   text-wrap: balance;
@@ -774,13 +787,13 @@ h4 {
 
 .page-hero__desc {
   margin-top: 14px;
-  font-size: 14.5px;
+  font-size: 15px;
   line-height: 1.8;
 }
 
 .page-hero__meta {
   margin-top: 20px;
-  font-size: 9.5px;
+  font-size: 10px;
 }
 
 .section {
@@ -789,7 +802,7 @@ h4 {
 
 .section__title {
   font-size: clamp(22px, 3vw, 32px);
-  font-weight: 700;
+  font-weight: 750;
   letter-spacing: -0.02em;
 }
 
@@ -798,12 +811,12 @@ h4 {
 }
 
 .section__index {
-  font-size: 9.5px;
+  font-size: 10px;
 }
 
 .eyebrow {
   color: var(--accent-text);
-  font-size: 9.5px;
+  font-size: 10px;
 }
 
 .eyebrow::before {
@@ -866,7 +879,7 @@ h4 {
 
 .post-row__title {
   font-size: clamp(17px, 1.9vw, 20px);
-  font-weight: 700;
+  font-weight: 750;
   letter-spacing: -0.015em;
 }
 
@@ -877,7 +890,7 @@ h4 {
 
 .post-row__desc {
   margin-top: 4px;
-  font-size: 12.5px;
+  font-size: 13px;
 }
 
 .post-row__tags {
@@ -890,7 +903,7 @@ h4 {
   border-radius: 3px;
   background: transparent;
   color: var(--muted);
-  font-size: 8.5px;
+  font-size: 9px;
 }
 
 .post-row:hover .tag {
@@ -898,7 +911,7 @@ h4 {
 }
 
 .post-row__date {
-  font-size: 9.5px;
+  font-size: 10px;
 }
 
 .post-row__arrow {
@@ -944,11 +957,19 @@ h4 {
 
 .note-card__title {
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 750;
 }
 
 .note-card__excerpt {
-  font-size: 12.5px;
+  font-size: 13px;
+}
+
+.note-card__meta {
+  font-size: 9.5px;
+}
+
+.note-article__meta {
+  font-size: 10px;
 }
 
 /* ---------- 杂谈页 ---------- */
@@ -962,7 +983,7 @@ h4 {
 }
 
 .note-article__title {
-  font-weight: 700;
+  font-weight: 750;
 }
 
 /* ---------- 归档 ---------- */
@@ -977,12 +998,12 @@ h4 {
 
 .archive__year {
   color: var(--accent-text);
-  font-weight: 700;
+  font-weight: 750;
   letter-spacing: -0.03em;
 }
 
 .archive__title {
-  font-size: 13.5px;
+  font-size: 14px;
 }
 
 /* ---------- 标签 ---------- */
@@ -1004,9 +1025,13 @@ h4 {
   transform: translateY(-1px);
 }
 
+.archive__date {
+  font-size: 10px;
+}
+
 .tag-card__name {
   font-size: clamp(18px, 2.1vw, 22px);
-  font-weight: 700;
+  font-weight: 750;
 }
 
 .tag-cloud a {
@@ -1043,7 +1068,7 @@ h4 {
 .article-hero__title {
   margin-top: 12px;
   font-size: clamp(28px, 4vw, 44px);
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.16;
   letter-spacing: -0.025em;
   text-wrap: balance;
@@ -1051,11 +1076,12 @@ h4 {
 
 .article-hero__desc {
   margin-top: 12px;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .article-hero__meta {
   margin-top: 18px;
+  font-size: 10px;
 }
 
 .article-layout {
@@ -1074,21 +1100,26 @@ h4 {
 }
 
 .prose {
-  font-size: 16px;
-  line-height: 1.95;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.85;
+}
+
+.prose p {
+  font-weight: 500;
 }
 
 .prose h2 {
   padding-left: 12px;
   border-left: 2px solid var(--accent);
   font-size: clamp(21px, 2.6vw, 26px);
-  font-weight: 700;
+  font-weight: 750;
   letter-spacing: -0.015em;
 }
 
 .prose h3 {
   font-size: clamp(18px, 2.1vw, 20px);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .prose a {
@@ -1174,6 +1205,11 @@ h4 {
 
 .toc__label {
   color: var(--accent-text);
+  font-size: 9.5px;
+}
+
+.toc a {
+  font-size: 11.5px;
 }
 
 /* ---------- 上一篇 / 下一篇 ---------- */
@@ -1194,8 +1230,12 @@ h4 {
   border-left-color: var(--glass-border);
 }
 
+.post-nav__label {
+  font-size: 9.5px;
+}
+
 .post-nav__title {
-  font-weight: 700;
+  font-weight: 750;
 }
 
 .comments {
@@ -1208,7 +1248,11 @@ h4 {
 }
 
 .about-block h2 {
-  font-weight: 700;
+  font-weight: 750;
+}
+
+.about-block p {
+  font-size: 15px;
 }
 
 /* ---------- 404 ---------- */
@@ -1342,6 +1386,11 @@ h4 {
 
   .article-layout > .prose {
     padding: 24px 20px;
+  }
+
+  .prose {
+    font-size: 16px;
+    line-height: 1.9;
   }
 
   .post-nav > :last-child {
