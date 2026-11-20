@@ -502,6 +502,15 @@ h4 {
   line-height: 1.65;
 }
 
+/* 夜间模式：资料卡插画仍是浅色，文字翻成米白 + 深色描边，
+   和插画本身的黑色勾线一致；插画背景不做任何处理。 */
+[data-theme='dark'] .profile__name,
+[data-theme='dark'] .profile__bio {
+  color: #f4eadb;
+  text-shadow: -1px -1px 0 #1b1510, 1px -1px 0 #1b1510, -1px 1px 0 #1b1510,
+    1px 1px 0 #1b1510, 0 0 12px rgba(20, 15, 10, 0.95);
+}
+
 /* ---------- NOW 卡 ---------- */
 .now-card {
   padding: 26px;
