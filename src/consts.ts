@@ -16,11 +16,6 @@ export const SITE = {
 
 export const NAV = [
   { label: '首页', href: '/' },
-  { label: '文章', href: '/blog/' },
-  { label: '归档', href: '/archive/' },
-  { label: '照片墙', href: '/photowall/' },
-  { label: '杂谈', href: '/notes/' },
-  { label: '关于', href: '/about/' },
 ];
 
 /**
