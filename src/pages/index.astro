@@ -105,23 +105,6 @@ const focus = [
               <p class="profile__bio">{SITE.intro}</p>
             </div>
           </div>
-
-          <div class="profile__bottom">
-            <div class="profile__stats">
-              <div class="profile__stat profile__stat--post">
-                <b>{posts.length}</b>
-                <span>文章</span>
-              </div>
-              <div class="profile__stat profile__stat--note">
-                <b>{notes.length}</b>
-                <span>杂谈</span>
-              </div>
-              <div class="profile__stat profile__stat--photo">
-                <b>{PHOTOS.length}</b>
-                <span>照片</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -139,7 +122,7 @@ const focus = [
                     <span class="now-item__value">{item.value}%</span>
                   </div>
                   <div class="now-bar" style={`--p: ${item.value}%`}>
-                    <span></span>
+                    {item.value > 0 && <span></span>}
                   </div>
                 </div>
               ))
@@ -147,7 +130,9 @@ const focus = [
           </div>
 
           <div class="now-card__foot">
-            <span>{SITE.location} · 持续更新</span>
+            <span>
+              {SITE.location} · {posts.length} 篇文章 · {notes.length} 条杂谈 · {PHOTOS.length} 张照片
+            </span>
             <a href={withBase('/about/')}>关于我 →</a>
           </div>
         </div>
@@ -196,7 +181,7 @@ const focus = [
                 <span class="latest-card__ghost" aria-hidden="true">01</span>
                 <div class="latest-card__panel">
                   <div class="carousel__meta">
-                    <span class="carousel__badge">Latest Insight</span>
+                    <span class="carousel__badge">Latest · 最新</span>
                     <span class="carousel__date">{formatDate(latestPost.data.pubDate)}</span>
                   </div>
                   <h2 class="carousel__title">{latestPost.data.title}</h2>
@@ -230,8 +215,8 @@ const focus = [
             </span>
             <span class="theme-card__title theme-card__title--day">日间模式</span>
             <span class="theme-card__title theme-card__title--night">夜间模式</span>
-            <span class="theme-card__sub theme-card__sub--day">落樱漫舞的清晨</span>
-            <span class="theme-card__sub theme-card__sub--night">流萤飞舞的深空</span>
+            <span class="theme-card__sub theme-card__sub--day">有光的白天</span>
+            <span class="theme-card__sub theme-card__sub--night">安静下来的夜晚</span>
             <span class="theme-card__hint">点击切换</span>
           </button>
         </div>
@@ -250,7 +235,7 @@ const focus = [
         <div class="dash-badges">
           <span class="dash-badge">Astro 5</span>
           <span class="dash-badge">GitHub Pages</span>
-          <span class="dash-badge">Glass UI</span>
+          <span class="dash-badge">Paper UI</span>
         </div>
         <a class="dash-link" href={SITE.github} target="_blank" rel="noreferrer">GITHUB ↗</a>
       </div>
