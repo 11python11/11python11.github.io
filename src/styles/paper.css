@@ -541,17 +541,19 @@ h4 {
 }
 
 .now-item__value {
+  color: var(--ink);
+  font-weight: 600;
   font-size: 10px;
 }
 
 .now-bar {
-  height: 4px;
-  border-radius: 2px;
-  background: color-mix(in srgb, var(--ink) 7%, transparent);
+  height: 6px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--ink) 13%, transparent);
 }
 
 .now-bar span {
-  border-radius: 2px;
+  border-radius: 3px;
   background: var(--accent);
 }
 
