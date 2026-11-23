@@ -656,6 +656,36 @@ h4 {
   aspect-ratio: var(--poster-ratio, 16 / 9);
 }
 
+/* 首页光影集封面：框保持 1.89:1，封面图完整显示，两侧用同图模糊铺底 */
+.photo-poster--feature {
+  flex: none;
+  min-height: 0;
+  aspect-ratio: var(--poster-ratio, 2560 / 1354);
+}
+
+.photo-poster--feature::before {
+  content: '';
+  position: absolute;
+  inset: -30px;
+  z-index: 0;
+  display: block;
+  opacity: 1;
+  background: var(--poster-bg) center / cover no-repeat;
+  filter: blur(40px) brightness(0.9) saturate(0.98);
+  pointer-events: none;
+}
+
+.photo-poster--feature img {
+  z-index: 1;
+  object-fit: contain;
+}
+
+.photo-poster--feature .photo-poster__shade,
+.photo-poster--feature .photo-poster__arrow,
+.photo-poster--feature .photo-poster__content {
+  z-index: 2;
+}
+
 .photo-poster:hover {
   transform: translateY(-1px);
   box-shadow: var(--glass-shadow);
@@ -1319,6 +1349,38 @@ h4 {
   border-radius: 10px;
   background: var(--glass);
   box-shadow: none;
+}
+
+.photo-item__link {
+  display: block;
+}
+
+.photo-item__link:focus-visible {
+  outline-offset: -3px;
+}
+
+.photo-item__shade {
+  display: none;
+}
+
+.photo-item__caption {
+  position: relative;
+  right: auto;
+  bottom: auto;
+  left: auto;
+  z-index: 1;
+  padding: 11px 13px 13px;
+  background: var(--glass);
+  color: var(--ink);
+}
+
+.photo-item__meta {
+  color: var(--muted);
+}
+
+.photo-item__title {
+  margin-top: 3px;
+  color: var(--ink);
 }
 
 .photo-item:hover img {

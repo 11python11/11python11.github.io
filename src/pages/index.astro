@@ -25,6 +25,7 @@ const focus = [
       fetchpriority="high"
     />
     <link rel="preload" as="image" href={withBase('/images/desk.webp')} fetchpriority="high" />
+    <link rel="preload" as="image" href={withBase(poster.src)} fetchpriority="high" />
   </Fragment>
 
   <div class="dashboard">
@@ -96,25 +97,28 @@ const focus = [
       </div>
 
       <div class="dash-span-8">
-        <div
-          class="dash-card photo-poster photo-poster--static"
-          style={`--poster-ratio: ${poster.width} / ${poster.height}`}
+        <a
+          class="dash-card photo-poster photo-poster--feature"
+          href={withBase('/photowall/')}
+          style={`--poster-bg: url('${withBase(poster.src)}'); --poster-ratio: 2560 / 1354;`}
+          aria-label="打开光影集"
         >
           <img
             src={withBase(poster.src)}
             alt={poster.alt}
             width={poster.width}
             height={poster.height}
-            loading="lazy"
+            loading="eager"
             decoding="async"
           />
           <span class="photo-poster__shade"></span>
+          <span class="photo-poster__arrow" aria-hidden="true">↗</span>
           <span class="photo-poster__content">
-            <span class="photo-poster__label">PHOTO · 2026</span>
+            <span class="photo-poster__label">PHOTOWALL · {PHOTOS.length} PHOTOS</span>
             <span class="photo-poster__title">光影集</span>
             <span class="photo-poster__desc">把喜欢的瞬间挂起来，慢慢收集。</span>
           </span>
-        </div>
+        </a>
 
         <button class="dash-card theme-card" type="button" data-theme-toggle aria-label="切换明暗主题">
           <span class="theme-card__orb" aria-hidden="true">

@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { PHOTOS } from '../consts';
+import { withBase } from '../utils';
+---
+
+<BaseLayout title="光影集" description="光影集：比赛、证书，还有一些值得记住的瞬间。">
+  <div class="photo-page">
+    <section class="page-hero" data-hero>
+      <p class="eyebrow mono">// PHOTOWALL · 2026</p>
+      <h1 class="page-hero__title">光影集<span class="accent">.</span></h1>
+      <p class="page-hero__desc">
+        比赛、证书，还有一些值得记住的瞬间。点开照片可以看原图。
+      </p>
+      <div class="page-hero__meta mono">
+        <span>{PHOTOS.length} 张照片</span>
+        <span>持续收集</span>
+        <span>2026</span>
+      </div>
+    </section>
+
+    <section class="photo-grid" aria-label="光影集">
+      {
+        PHOTOS.map((photo, index) => (
+          <figure class="photo-item">
+            <a
+              class="photo-item__link"
+              href={withBase(photo.src)}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`查看原图：${photo.title}`}
+            >
+              <img
+                src={withBase(photo.src)}
+                alt={photo.alt}
+                width={photo.width}
+                height={photo.height}
+                loading={index === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+              />
+            </a>
+            <span class="photo-item__shade" aria-hidden="true"></span>
+            <figcaption class="photo-item__caption">
+              <span class="photo-item__meta">{photo.meta}</span>
+              <h2 class="photo-item__title">{photo.title}</h2>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </section>
+
+    <p class="photo-note mono">// 点击照片查看原图。</p>
+  </div>
+</BaseLayout>
